@@ -29,6 +29,10 @@ To guide an AI assistant in creating a detailed, step-by-step task list in Markd
 
 The generated task list _must_ follow this structure:
 
+- 父任务（1.0、2.0…）使用 Markdown 三级标题（`### 1.0 xxx`），**不要**把父任务本身做成复选框；
+- 子任务使用 `- [ ]` 列表项，归属于对应父任务标题之下；
+- `0.0 Create feature branch` 可以保持为普通复选框任务（因为通常只有一个子步骤）。
+
 ```markdown
 ## Relevant Files
 
@@ -59,12 +63,17 @@ Update the file after completing each sub-task, not just after completing an ent
 
 - [ ] 0.0 Create feature branch
   - [ ] 0.1 Create and checkout a new branch for this feature (e.g., `git checkout -b feature/[feature-name]`)
-- [ ] 1.0 Parent Task Title
-  - [ ] 1.1 [Sub-task description 1.1]
-  - [ ] 1.2 [Sub-task description 1.2]
-- [ ] 2.0 Parent Task Title
-  - [ ] 2.1 [Sub-task description 2.1]
-- [ ] 3.0 Parent Task Title (may not require sub-tasks if purely structural or configuration)
+
+### 1.0 Parent Task Title
+
+- [ ] 1.1 [Sub-task description 1.1]
+- [ ] 1.2 [Sub-task description 1.2]
+
+### 2.0 Parent Task Title
+
+- [ ] 2.1 [Sub-task description 2.1]
+
+### 3.0 Parent Task Title (may not require sub-tasks if purely structural or configuration)
 ```
 
 ## Interaction Model
@@ -109,7 +118,7 @@ Assume the primary reader of the task list is a **junior developer** who will im
 **Completion protocol:**
 
 1. 当完成某个 **sub-task** 时，立即将该条目标记为完成：把 `- [ ]` 改为 `- [x]`。
-2. 当某个父任务下的所有子任务均为 `[x]` 时，同时将该父任务也标记为 `- [x]`。
+2. 当某个父任务下的所有子任务均为 `[x]` 时，可以在父任务标题前追加简单标记（例如在标题行最前面加上「✅ 」），无需再为父任务单独使用复选框。
 3. 完成每一个子任务后，应暂停并等待用户确认，再开始下一个子任务。
 
 ### Task List Maintenance
