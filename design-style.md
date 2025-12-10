@@ -1,26 +1,33 @@
-# Design Style Guide
+# Rule: Generating a Project Design Style Guide
 
-## 如何用于新项目
+## Goal
 
-1. 在启动新项目时，先根据 **1. 基础 Design Tokens** 补齐项目变量：
-   - 品牌关键词与语气（例如：理性 / 温暖 / 运动感 / 科技感 等）。
-   - 字体家族及使用场景。
-   - 颜色系统：primary / secondary / accent / gray scale / 成功 & 错误状态色等。
-2. 在 `tailwind.config.{js,ts}` 中配置与本文件一致的 design tokens（颜色、字体、圆角、阴影等），并在全局样式（如 `app/globals.css`）中定义这里提到的组件类名。
-3.
+To guide an AI assistant (and designers / developers) in creating a consistent, reusable visual style guide (`style.md`) for any web project, based on Tailwind CSS and the design habits defined here.
+
+本规则用于指导 AI 和前端，在不同项目中生成结构统一、可复用的样式文档，而不是描述某一个具体站点的实现细节。
+
+## Process
+
+1. **收集项目背景与品牌信息**：从用户处获取项目类型、目标用户、品牌关键词（如理性 / 温暖 / 运动感 / 科技感）等。
+2. **确认基础 Design Tokens**：根据本文件的「1. 基础 Design Tokens」章节，与用户确认字体、颜色、圆角、阴影等项目变量，并在 `tailwind.config.{js,ts}` 与全局样式（如 `app/globals.css`）中完成配置。
+3. **生成项目级样式文档**：按照本文件「1–8」的结构，生成该项目专用的 `style.md`，填入项目特定的 tokens、组件约定与代码片段示例。
+4. **在开发中持续使用**：在实现组件 / 页面时，开发者和 AI 应始终优先遵循该项目的 `style.md`；如需新增视觉模式或组件，先更新 `style.md` 再落地代码。
 
 ## Output
 
 - **Format:** Markdown (`.md`)
 - **Location:** `/docs/`
 - **Filename:** `style.md`
-- **Doc Role Note:** When generating the PRD `style.md`, you **must** add the following note near the top of the document (typically right after the main title):
+- **Doc Role Note:** When generating the project style guide `style.md`, you **must** add the following note near the top of the document (typically right after the main title):
 
-  `文档角色说明：本文件定义产品在 Web 端的视觉系统，回答「长什么样」「如何保持视觉一致」。它是前端样式实现手册，不涉及功能逻辑或业务规则。
+  `文档角色说明：本文件定义产品在 Web 端的视觉系统，回答「长什么样」「如何保持视觉一致」。它是前端样式实现手册，不涉及功能逻辑或业务规则。行为与交互详见产品规格文档（如 `spec.md`/`docs/spec.md`）。若有冲突：**交互行为以规格文档为准，视觉细节以本文件为准**。`
 
-> 行为与交互详见产品规格文档（如 `spec.md` / `docs/spec.md`）。若有冲突：**交互行为以规格文档为准，视觉细节以本文件为准**。
+## Target Audience
 
-4. 之后可让 AI 或开发者在实现组件 / 页面时，**始终优先遵循本文件的规则**；当需要新增模式时，应先在此文件中扩展规范，再去写代码。
+- 主要读者包括：
+  - 前端开发者（含初级开发），用于实现和复用 UI；
+  - 设计师，用于约束和扩展视觉系统；
+  - AI 助手，用于在代码层面生成符合规范的组件与页面。
 
 ---
 
