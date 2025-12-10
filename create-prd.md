@@ -71,10 +71,10 @@ Assume the primary reader of the PRD is a **junior developer**. Therefore, requi
 ## Output
 
 - **Format:** Markdown (`.md`)
-- **Location:** `/tasks/`
+- **Location:** `/docs/`
 - **Filename:** `spec.md`
 - **Doc Role Note:** When generating the PRD `spec.md`, you **must** add the following note near the top of the document (typically right after the main title):
-  
+
   `文档角色说明：本文件定义「做什么、怎么运作」——功能逻辑、交互流程与业务规则；具体颜色/字体/间距/组件样式等视觉细节统一收敛在 docs/style.md。`
 
 ## Final instructions
