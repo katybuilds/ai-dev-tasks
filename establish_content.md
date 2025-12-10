@@ -1,15 +1,39 @@
-# Rule: Generating the Website Content Architecture & Strategy Document
+# Rule: Generating the Website Content Architecture & Strategy Document (content.md)
+
+This rule defines a standard for generating `content.md` for any website.  
+It ensures clear information architecture, SEO‑aligned content structure, a coherent set of public pages（Homepage / Blog / Pricing / Changelog / Legal / FAQ 等），以及可选的登录后产品内页面（Dashboard / Settings / Onboarding 等）。
+
+AI must:
+1) Ask clarifying questions first（最多 6 个，且只问与内容/信息架构直接相关的问题）；  
+2) Generate `content.md` using the Content Structure below；  
+3) Apply Writing Style + Content Rules to all text；  
+4) Run the AI Checklist before returning the final document。
+
+If missing information — always output `TODO`（或简短说明「待确认」），**never invent pages, features, or content**。
+
+---
 
 ## Goal
 
 To guide an AI assistant in creating a clear, actionable **website content architecture & strategy document** (`content.md`) in Markdown format, based on an initial user prompt.  
-The document should：
+The document should:
 
 - 让团队一眼看清：网站包含哪些页面、各页面的内容模块与信息层级；
 - 覆盖「公开网站」（Homepage / Blog / Pricing / Changelog / Terms / FAQ 等）以及「登录后产品内页面」的内容结构（如 Dashboard / Settings / Onboarding），后者在暂未定义时可以留出占位与 TODO；
 - 为后续文案撰写、设计与开发提供统一 blueprint。
 
 生成的 `content.md` 是内容与信息架构层面的 PRD，不涉及视觉样式（由 `style.md` 负责）或技术实现细节（由技术文档负责）。
+
+---
+
+## Short Execution Mode (for AI)
+
+在实际执行时，AI 可以遵循以下精简流程（完整细节仍以本规则全文为准）：
+
+1. 先提出最多 6 个澄清问题，只问与内容结构直接相关的关键点；
+2. 按「Content Document Structure」章节（1–7）生成 `content.md`；
+3. 在生成全文时同时应用「Content Rules」与「Writing Style Guide」中的要求；
+4. 使用「AI Checklist」逐条自检，必要时补充 `TODO` 标记，再输出终稿。
 
 ---
 
@@ -25,37 +49,38 @@ The document should：
 
 ## Clarifying Questions (Guidelines)
 
-在生成 `content.md` 之前，AI 应根据初始描述补充问清以下核心信息。只问真正影响信息架构与内容范围的问题。
+在生成 `content.md` 之前，AI 应根据初始描述补充问清少量「结构级」关键问题。只问真正影响信息架构与内容范围的问题，避免重复询问可在 Overview 内直接填充的信息。
 
-常见需要澄清的维度：
+优先确认的核心维度（必须搞清）：
 
 - **网站类型与业务模式**
 
-  - 这是哪一类网站？（如 SaaS 工具站、内容型博客 / 知识库、营销 Landing Page、混合型）
+  - 这是哪一类网站？（如 SaaS 工具站 / 内容型博客 / 知识库 / 营销 Landing Page / 混合型）；
   - 产品是 B2B / B2C / 内部工具？
-  - 是否有登录后的应用（Dashboard / Settings / Onboarding 等）？
-  - 收费模式：免费 / 订阅 / 一次性付费 / Freemium / 其它？
+  - 是否有登录后的应用（Dashboard / Settings / Onboarding 等），如果有，大致有哪些主要页面类型？
 
-- **目标用户与场景**
+- **内容模块开关（哪些页面存在 / 不存在）**
 
-  - 主要目标用户是谁？（职业 / 经验水平 / 使用场景）
-  - 用户访问网站的主要目的是什么？（试用、购买、查文档、查价格、阅读教程等）
-
-- **价值主张与差异化**
-
-  - 产品的一句话价值主张是什么？
-  - 与主要竞争对手相比，站点内容需要突出哪些差异点？（易用性 / 速度 / 价格 / 集成生态等）
-
-- **内容模块范围**
-
-  - 是否需要 Blog？如果需要，主要目标是 SEO / 教育 / 品牌权威？
-  - 是否需要 Pricing 页面？是否有多个 plan？
-  - 是否需要 Changelog？更新频率如何？
+  - 是否需要 Blog？如果需要，主要目标是 SEO / 教育 / 品牌权威中的哪几项？
+  - 是否需要 Pricing 页面？定价是单一价格，还是多档 Plan？
+  - 是否需要 Changelog？预期更新频率（例如：每周 / 每月 / 仅大版本）？
+  - 是否需要 Docs / Help Center / FAQ？是集中在一个区域，还是分散在多个页面？
   - 哪些法律 / 信任相关页面是必须的？（Terms / Privacy / About / Contact / DPA 等）
 
-- **写作与品牌风格**
-  - 品牌语气更偏：专业理性 / 亲和温暖 / 轻松有趣 / 极简冷静 ？
-  - 是否已有内部《Writing Style Guide》（如 `@writing_style`），若有应在 `content.md` 中引用而不是复制全文。
+- **语言与主要受众**
+
+  - 主要目标用户是谁？（职业 / 经验水平 / 使用场景）；
+  - 网站默认展示语言是什么？（当前默认英文；如需多语言或本地化，应在 clarifying 阶段说明）。
+
+如初始描述中**完全没有提到**价值主张或差异化，可追加 1–2 个简短问题，仅用于填写 Overview：
+
+- 产品的一句话价值主张是什么？（可选）；
+- 与主要竞争对手相比，希望在站点内容中强调哪些差异点？（可选）。
+
+写作风格方面：
+
+- 如已有内部《Writing Style Guide》，可作为输入材料，由 AI 将其中适用的规则整合进 `content.md` 的 Writing Style 章节；
+- 如没有明确写作规范，可直接采用本规则文件中的写作示例作为默认风格，无需额外追问。
 
 ### Formatting Requirements for Questions
 
@@ -314,26 +339,215 @@ Changelog 内容规范（面向用户的更新说明）
 
 ### 5. Content Rules（内容规范）
 
-在 `content.md` 中，应包含一节内容规范，至少包括：
+在 `content.md` 中，应包含一节内容规范，并与第 6 节的写作风格一起，形成统一的「全站内容上限」。在进入具体细则前，所有面对用户的内容应默认满足以下原则：
 
-- 所有对外内容使用英文撰写（除非有明确多语言策略）；
-- 内容必须对用户有实际帮助，不为了 SEO 机械堆砌关键词；
-- 优先通过说明 + 示例的方式呈现，让用户知道如何应用；
-- 标题不钓鱼、不夸张（避免「终极」「完美」「唯一」之类过度营销用语）；
-- CTA 清晰直接（例如「Start free trial」「Read the guide」「View pricing」），避免模糊按钮文案；
-- 面向真实使用场景写作，而不是仅给出抽象概念。
+- 默认使用英文撰写（除非明确约定多语言策略或特定本地化需求）；
+- 对用户有实际帮助，避免为 SEO 机械堆砌关键词或生成空洞段落；
+- 尽量通过示例、用例或具体情境支撑说明，使内容可执行；
+- 句子偏短、语气直接，整体 Tone 保持一致，不故作高深。
+
+在此基础上，`content.md` 的内容规范章节至少应包含：
+
+- 优先通过说明 + 示例的方式呈现，让用户知道如何应用；  
+- 标题不钓鱼、不夸张（避免「终极」「完美」「唯一」之类过度营销用语）；  
+- CTA 清晰直接（例如「Start free trial」「Read the guide」「View pricing」），避免模糊按钮文案；  
+- 面向真实使用场景写作，而不是仅给出抽象概念。  
 
 ### 6. Writing Style Guide（写作风格）
 
-`content.md` 应明确写作风格的来源与约束：
+`content.md` 应直接、完整地包含本项目的写作风格规范，而不是依赖其他外部文件：
 
-- 引用内部写作规范文档（例如：`@writing_style`），作为详细风格指南；
-- 摘要性的 2–4 条原则，如：
-  - 语气：专业但不生硬，避免行话堆砌；
-  - 句式偏短，优先主动语态；
-  - 同一概念在全站使用统一术语。
+- 可以将现有写作规范（如 `docs/writing_style.md` 或临时草稿）中的**所有适用规则**复制并整合到本节中，使 `content.md` 成为唯一的写作风格来源；
+- 建议在本节按小节组织内容，例如：
+  - 视角与人称（第一人称 / 第二人称的使用场景）；
+  - 语气与句式（自然、诚实、短句、主动语态、先结论后细节等）；
+  - 责任与边界（哪些话题不覆盖、如何加限定语）；
+  - CTA 写法（按钮文案、段落末尾行动号召的风格）；
+  - 内链与 SEO 文案（如何写链接文本、描述、标题等）。
+- 为了方便快速阅读，可以在本节开头先给出 3–5 条高度浓缩的原则，然后在后续小节展开细则。
 
-不建议在 `content.md` 中复制整份 style guide，而是用链接 / 引用的方式保持单一来源。
+> 说明：一旦将写作规范整合进 `content.md`，后续如需调整写作风格，应直接编辑 `content.md` 中本节内容，而不是再维护独立的写作规范文件。
+
+#### 示例：Writing Guidelines – MelMomLife（可按项目调整）
+
+> 说明：下面是一份完整的写作规范示例。在生成具体项目的 `content.md` 时，**只应复用其中通用写作规则**（如视角、人称、语气、句式、CTA、真实性、内链与 SEO 原则等），而与项目强绑定的内容（如具体标签列表、分类名、示例城市/主题等）必须按该项目实际情况重写，不能直接照搬。
+
+This document defines the **writing style, tone, and perspective** for all content in this project.
+
+---
+
+## 🧭 1. Perspective & Voice
+
+Write in **first-person**. Use “I/my” for individual experiences, and “we/our” when referring to shared family experiences.
+
+| Perspective | When to Use                    | Example                                                   |
+| ----------- | ------------------------------ | --------------------------------------------------------- |
+| I / my      | Personal thoughts or opinions  | I found the weather in our city unpredictable.            |
+| We / our    | Shared family experience       | We love spending weekends at local parks.                 |
+| You / your  | Addressing the reader directly | If you’re new here, you’ll love the coffee scene.         |
+
+> Keep it conversational — like talking to a friend. Avoid corporate or “team” voice.
+
+---
+
+## 💬 2. Tone
+
+- Natural, friendly, honest.
+- Short sentences (under 20 words).
+- Prefer **active voice** over passive.
+- Give conclusions first, then details.
+- Add emotional realism — use small, real moments.
+- Do not use em dashes (—) or single hyphens (-) to join clauses. Use commas, colons, or parentheses when applicable.
+- Use quotation marks for "Direct Speech", "Quoting text","Scare Quotes".
+
+**Examples**
+
+✅ “We moved here last year, and it felt exciting and confusing at the same time.”  
+❌ “The relocation process was conducted by our family in 2024.”
+
+---
+
+## 🧠 3. Responsibility & Boundaries
+
+Use verbs that show **action and ownership**.
+
+| Do                                                      | Don’t                                            |
+| ------------------------------------------------------- | ------------------------------------------------ |
+| I recommend checking school zones before renting.       | We suggest users might consider...               |
+| We tried several suburbs before choosing Glen Waverley. | It was discovered that some suburbs were better. |
+| I don’t cover visa topics — only family life.           | Visa topics will not be covered by the team.     |
+
+---
+
+## 📣 4. CTAs (Calls to Action)
+
+Use clear, human, action-oriented phrasing.
+
+Examples:
+
+- “If you’re planning to move soon, start by checking school zones.”
+- “You can follow my posts for more family-friendly suburbs.”
+- “Want to know more about daily life costs? Read the next article.”
+
+---
+
+## ⚖️ 5. Authenticity & Transparency
+
+- Never exaggerate — share what you actually experienced.
+- When uncertain, add qualifiers:
+  - “For our family…”
+  - “In most cases…”
+  - “From what I’ve seen…”
+- Be transparent about limits:
+  - “I haven’t tried every area yet.”
+  - “Prices may have changed since we moved.”
+
+---
+
+## 🔧 6. Quick Replacement Rules (for editing)
+
+When editing drafts or AI outputs, apply these replacements:
+
+| From                                         | To  |
+| -------------------------------------------- | --- |
+| We → I (unless family context)               |
+| Our → My (unless family context)             |
+| Let’s → I’ll / You can                       |
+| We use → I use / We use (if family activity) |
+| We recommend → I recommend / We recommend    |
+| 我们 → 我 / 我们家                           |
+| 我们的 → 我的 / 我们家的                     |
+| — (em dash) or - (hyphen) → , / : / ()       |
+
+---
+
+## 📄 7. Template Sentences
+
+- We moved to a new city because **X**, and it changed how we **Y**.
+- I use **Z** to make daily life easier.
+- If you’re facing **A**, try doing **B** first.
+- For our family, **C** is the best part of our current lifestyle.
+- I don’t do **D** for now — here’s what I use instead.
+
+---
+
+## 🗂 8. File Naming Convention
+
+| Type          | Folder           | Example Filename            |
+| ------------- | ---------------- | --------------------------- |
+| Blog Post     | `content/posts/` | `life-in-melbourne.md`      |
+| Writing Guide | `docs/`          | `writing-guidelines.md`     |
+| Draft Notes   | `docs/drafts/`   | `moving-checklist-draft.md` |
+
+---
+
+## 🪶 9. Example Metadata (Front Matter)
+
+```yaml
+---
+title: "Moving to a New City: What Surprised Our Family"
+date: 2025-10-15
+description: "We moved to a new city. Here’s what family life really feels like."
+categories: ["Family Life", "Relocation"]
+tags: ["New City", "Family Life", "Relocation", "Newcomers"]
+draft: false
+---
+```
+
+## 💡 10. AI Writing Prompt (for reuse)
+
+Prompt for AI tools:
+
+```
+
+Write in first-person perspective. Use “I/my” for individual experiences and “we/our” for shared family experiences.
+Address the reader as “you.” Keep tone conversational, concise, and honest. Use active voice and short sentences.
+Include real feelings or small family details when possible.
+Avoid corporate tone. Use qualifiers (“for us”, “in my experience”) to stay authentic.
+```
+
+## 🔗 12. Internal Links (Linking to Other Articles)
+
+Use internal links to help readers discover relevant posts and to keep navigation simple.
+
+- Link format: use site‑root absolute paths with the canonical slug, not full domain.
+  - Example: `[Top 10 Safest Councils](/top-10-safest-councils-in-melbourne-but-don-t-forget-to-check-the-suburbs/)`
+  - Include a trailing slash.
+- Where to place:
+  - Contextual links inside paragraphs where it naturally helps.
+  - Optional “Related” block at the end with 1–3 links.
+- Anchor text: descriptive and specific. Avoid “click here” / “read more”.
+- Quantity: 2–4 internal links per post is enough; avoid keyword stuffing.
+- Cross‑linking: when two posts strongly relate, link both ways where useful.
+- Tags pages: it’s OK to link to tag hubs when relevant, e.g. `[Parenting](/tags/parenting/)`.
+
+Optional (advanced): some static site generators提供 `ref`/`relref` 等短代码，可根据文件路径生成链接并在目标缺失时直接报错。若项目使用此类工具，可优先采用短代码保持链接可维护性；否则使用 slug 路径是最简单、最通用的方式。
+
+### Related Block Template (Paste at End of Post)
+
+Add an optional related links block at the bottom of the article. Use 1–3 highly relevant links.
+
+```markdown
+---
+
+**Related Articles**
+
+- [How We Choose a Safe Area for Our Family](/how-we-choose-a-safe-area-for-our-family/)
+- [How We Estimate Monthly Living Costs Before Moving](/how-we-estimate-monthly-living-costs-before-moving/)
+- [Things We Wish We Knew Before Relocating](/things-we-wish-we-knew-before-relocating/)
+```
+
+Notes
+
+- Use the canonical slug path with trailing slash（或采用项目约定的统一 URL 规则）。
+- Keep it short (max 3 links) and truly relevant to the post.
+
+## 🔎 13. SEO & Images
+
+- Always add descriptive alt text to images. Replace generic text like “Section image” with meaningful descriptions (e.g., “Chart: monthly sign-ups for our product in 2024”).
+- Keep alt text concise (6–12 words), reflect what’s visible and relevant to the article.
+- Use canonical slugs for internal links and include a trailing slash（或项目约定的 URL 规范）。
+- Include a short `description` in front matter for each post; summarise the article in one sentence.
 
 ### 7. AI Checklist（写作 / 生成检查清单）
 
