@@ -8,7 +8,7 @@ To guide an AI assistant in creating a detailed, step-by-step task list in Markd
 
 - **Format:** Markdown (`.md`)
 - **Location:** `/tasks/`
-- **Filename:** `tasks-[feature-name].md` (e.g., `tasks-user-profile-editing.md`)
+- **Filename:** `tasks.md`
 
 ## Process
 
@@ -45,6 +45,7 @@ The generated task list _must_ follow this structure:
 **IMPORTANT:** As you complete each task, you must check it off in this markdown file by changing `- [ ]` to `- [x]`. This helps track progress and ensures you don't skip any steps.
 
 Example:
+
 - `- [ ] 1.1 Read file` → `- [x] 1.1 Read file` (after completing)
 
 Update the file after completing each sub-task, not just after completing an entire parent task.
