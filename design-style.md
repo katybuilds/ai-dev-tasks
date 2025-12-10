@@ -59,6 +59,7 @@
   - 灰阶 / 中性色（可通过 `foreground`、`muted`、`border` 等 token 体现）。
   - 状态色：成功 / 错误 / 警告，对应 `success` / `destructive` / `warning`（可在 Tailwind 里扩展）。
   - 是否需要针对 Dark Mode 定义额外一套 token（如 `background-dark` 等）。
+  - 建议在初次配置时，在浏览器中打开 <https://tweakcn.com/editor/theme>，先从中选择一个最接近项目品牌调性的主题，然后以该主题的主色 / 灰阶 / 状态色为基础整理出项目的 Color Palette，并将最终确定的颜色值同步到 `style.md` 与 `tailwind.config.ts` 中。
 - **圆角与阴影（Radius & Shadow）**
   - 约定项目统一使用的圆角半径（小 / 中 / 大 / full）对应 Token。
   - 2–3 个语义化阴影层级（如：`card` / `elevated` / `primary-cta`）。
@@ -465,6 +466,14 @@ Design Tokens 用于在设计与代码间建立统一语言，主要包含字体
 - **复杂编辑器布局（示例）**
   - 使用二维网格：`grid grid-cols-[auto,minmax(0,1fr)]`；
   - 移动端可改为纵向堆叠，拖拽手柄与主要内容保持在视区内。
+
+- **移动端 UI 原则：**
+  - 采用移动优先（mobile-first）思路：基础样式适配窄屏，再使用 `md:` / `lg:` 等前缀增强桌面体验。
+  - 交互控件（按钮、图标圆钮、芯片）的可点击区域不小于约 `40x40px`，避免过小导致误触或难以点击。
+  - 表单在窄屏下尽量一列排布，避免横向滚动；必要的两列布局需保证每列控件宽度足够输入。
+  - 顶部导航在移动端应尽量简化（如使用菜单按钮 / 抽屉），避免放置过多一级入口导致拥挤。
+  - 在移动端减少非必要装饰性阴影和渐变，优先保证内容可读性和滚动性能。
+  - 避免依赖 hover-only 的反馈方式，在移动端通过 active、focus、明显的状态变化传达交互。
 
 ---
 
