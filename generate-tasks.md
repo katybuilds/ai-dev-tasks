@@ -39,6 +39,7 @@ The generated task list _must_ follow this structure:
 
 - Unit tests should typically be placed alongside the code files they are testing (e.g., `MyComponent.tsx` and `MyComponent.test.tsx` in the same directory).
 - Use `npx jest [optional/path/to/test/file]` to run tests. Running without a path executes all tests found by the Jest configuration.
+- 如需在本地完成全部任务后收到声音提示，可以在合适的位置（例如 `Notes` 或执行说明中）加上一句「如需本地完工提示，参见 `rules.md` 中的通知命令」，引用 `rules.md` 中约定的本地完工提示命令，而不必在 `tasks.md` 中重复完整命令。
 
 ## Instructions for Completing Tasks
 
