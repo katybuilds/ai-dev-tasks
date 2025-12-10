@@ -69,3 +69,68 @@ The process explicitly requires a pause after generating parent tasks to get use
 ## Target Audience
 
 Assume the primary reader of the task list is a **junior developer** who will implement the feature.
+
+---
+
+## 开发规范遵循
+
+**文档规范**
+
+- 需求文档：实现功能时必须严格按照 `docs/spec.md` 中的具体要求执行。
+- 设计规范：界面样式与交互必须严格遵循 `docs/style.md` 中的设计规范。
+
+**任务管理**
+
+- 每完成一个功能或子任务，必须立即更新 `tasks.md` 中对应条目的状态：
+  - 完成标记为 `- [x]`（可选附加 ✅ 表示已完成且验证通过）。
+  - 如出现阻塞或暂时无法继续，可使用备注或 ⚠️ 标记说明原因。
+- 功能删减或范围变更必须提前告知并获得确认，不得擅自裁剪需求。
+- 每个阶段（或主要父任务）完成后应暂停，等待确认通过再继续下一阶段。
+
+**沟通机制**
+
+- 遇到文档歧义或不明确之处，必须即时确认，不得自行臆断。
+- UI 实现若与原型设计或设计规范有任何不一致（包括文字、布局、颜色、间距等），必须先确认后再实现。
+- 一旦发现需求之间存在冲突，应立即暂停相关实现并提出疑问，等待决策后再继续。
+
+---
+
+## Task List Management
+
+### Task Implementation
+
+- **One sub-task at a time:** Do **NOT** start the next sub-task until you ask the user for permission and they say “yes” or “y”。
+
+**Completion protocol:**
+
+1. 当完成某个 **sub-task** 时，立即将该条目标记为完成：把 `- [ ]` 改为 `- [x]`。
+2. 当某个父任务下的所有子任务均为 `[x]` 时，同时将该父任务也标记为 `- [x]`。
+3. 完成每一个子任务后，应暂停并等待用户确认，再开始下一个子任务。
+
+### Task List Maintenance
+
+**Update the task list as you work:**
+
+- 按上述协议及时更新任务和子任务的完成状态（`[ ]` → `[x]`）。
+- 在实施过程中，如发现新的必要任务，应在 `tasks.md` 中补充相应条目。
+
+**Maintain the `Relevant Files` section:**
+
+- 列出每一个被创建或修改的文件。
+- 为每个文件提供一句简要说明其用途或与本任务的关系。
+
+---
+
+## AI Instructions
+
+When working with task lists, the AI must:
+
+1. 在完成任何重要工作后，及时更新对应的任务列表文件（`tasks.md`）。
+2. 严格遵守完成协议（Completion protocol）：
+   - 标记每一个已完成的 **sub-task** 为 `[x]`。
+   - 当某父任务下所有子任务均为 `[x]` 时，将该父任务也标记为 `[x]`。
+3. 在执行过程中，发现新的合理任务时，应将其添加到任务列表中，并保持 `Relevant Files` 部分准确、最新。
+4. 在开始工作前，先检查当前「下一个要做的子任务」是哪一条，并与用户确认是否继续。
+5. 每完成一个子任务后：
+   - 先更新 `tasks.md` 中的状态；
+   - 然后暂停，等待用户的确认或下一步指示，避免连续执行多个子任务而未同步状态。

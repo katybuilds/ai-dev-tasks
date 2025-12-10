@@ -77,6 +77,48 @@ Assume the primary reader of the PRD is a **junior developer**. Therefore, requi
 
   `文档角色说明：本文件定义「做什么、怎么运作」——功能逻辑、交互流程与业务规则；具体颜色/字体/间距/组件样式等视觉细节统一收敛在 docs/style.md。`
 
+- **Local Preview Note:** At the top of `spec.md` (close to the doc role note), you **must** include a short note explaining how to run the project locally, prioritizing `pnpm dev` as the recommended command (for example: “在本地查看效果：优先使用 \`pnpm dev\` 启动开发服务器，如未安装 pnpm，可按照项目 README 中的说明使用 npm/yarn。”).
+
+- **Completion Notification Command:** `spec.md` **must** include a short section that tells the developer to run the following command after completing the tasks, so they get an audible notification:
+
+  ```bash
+  powershell -c "(New-Object Media.SoundPlayer 'C:\\Windows\\Media\\tada.wav').PlaySync()"
+  ```
+
+- **Language Usage Guidelines:** `spec.md` **must** contain a section titled `### 语言使用规范` with the following content (you may place it near the end of the document, for example after “Open Questions” or in a separate “Conventions” section):
+
+  #### 中文使用范围（内部沟通）
+
+  - spec.md, style.md, task.md
+  - 团队内部沟通记录
+  - 项目管理文档
+  - 内部会议纪要
+
+  #### 英文使用范围（所有其他内容）
+
+  **代码层面：**
+
+  - 所有代码注释用英文
+  - 变量名、函数名用英文
+  - 开发文档用英文
+  - 测试数据用英文
+  - API 文档用英文
+
+  **网站内容：**
+
+  - 所有用户界面文字英文
+  - 按钮、标题、说明文字英文
+  - 错误提示英文
+  - 帮助文档英文
+  - 用户注册/登录页面英文
+
+  **部署相关：**
+
+  - 服务器配置英文
+  - 域名英文
+  - 数据库设计英文
+  - 日志记录英文
+
 ## Final instructions
 
 1. Do NOT start implementing the PRD
