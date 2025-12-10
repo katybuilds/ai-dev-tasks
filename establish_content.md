@@ -4,10 +4,11 @@ This rule defines a standard for generating `content.md` for any website.
 It ensures clear information architecture, SEO‑aligned content structure, a coherent set of public pages（Homepage / Blog / Pricing / Changelog / Legal / FAQ 等），以及可选的登录后产品内页面（Dashboard / Settings / Onboarding 等）。
 
 AI must:
-1) Ask clarifying questions first（最多 6 个，且只问与内容/信息架构直接相关的问题）；  
-2) Generate `content.md` using the Content Structure below；  
-3) Apply Writing Style + Content Rules to all text；  
-4) Run the AI Checklist before returning the final document。
+
+1. Ask clarifying questions first（最多 6 个，且只问与内容/信息架构直接相关的问题）；
+2. Generate `content.md` using the Content Structure below；
+3. Apply Writing Style + Content Rules to all text；
+4. Run the AI Checklist before returning the final document。
 
 If missing information — always output `TODO`（或简短说明「待确认」），**never invent pages, features, or content**。
 
@@ -317,7 +318,7 @@ Changelog 内容规范（面向用户的更新说明）
 - **URL 结构规则：**
 
   - 顶级路径：`/`, `/blog`, `/pricing`, `/changelog`, `/about`, `/contact`, `/faq`, `/terms`, `/privacy` 等；
-  - 内容页路径：如 `/blog/slug`, `/changelog/yyyymmdd-release-name` 等。
+  - 内容页路径：如 `//slug` 等。
 
 - **Keywords Mapping：**
 
@@ -348,12 +349,14 @@ Changelog 内容规范（面向用户的更新说明）
 
 在此基础上，`content.md` 的内容规范章节至少应包含：
 
-- 优先通过说明 + 示例的方式呈现，让用户知道如何应用；  
-- 标题不钓鱼、不夸张（避免「终极」「完美」「唯一」之类过度营销用语）；  
-- CTA 清晰直接（例如「Start free trial」「Read the guide」「View pricing」），避免模糊按钮文案；  
-- 面向真实使用场景写作，而不是仅给出抽象概念。  
+- 优先通过说明 + 示例的方式呈现，让用户知道如何应用；
+- 标题不钓鱼、不夸张（避免「终极」「完美」「唯一」之类过度营销用语）；
+- CTA 清晰直接（例如「Start free trial」「Read the guide」「View pricing」），避免模糊按钮文案；
+- 面向真实使用场景写作，而不是仅给出抽象概念。
 
 ### 6. Writing Style Guide（写作风格）
+
+本节是在第 5 节「Content Rules」之上的进一步展开：第 5 节回答「写什么样的内容」，而本节回答「用什么语气、句式和人称去写」。
 
 `content.md` 应直接、完整地包含本项目的写作风格规范，而不是依赖其他外部文件：
 
@@ -370,7 +373,8 @@ Changelog 内容规范（面向用户的更新说明）
 
 #### 示例：Writing Guidelines – MelMomLife（可按项目调整）
 
-> 说明：下面是一份完整的写作规范示例。在生成具体项目的 `content.md` 时，**只应复用其中通用写作规则**（如视角、人称、语气、句式、CTA、真实性、内链与 SEO 原则等），而与项目强绑定的内容（如具体标签列表、分类名、示例城市/主题等）必须按该项目实际情况重写，不能直接照搬。
+> 说明：下面是一份完整的写作规范示例。在生成具体项目的 `content.md` 时，**只应复用其中通用写作规则**（如视角、人称、语气、句式、CTA、真实性、内链与 SEO 原则等），而与项目强绑定的内容（如具体标签列表、分类名、示例城市/主题等）必须按该项目实际情况重写，不能直接照搬。  
+> 若项目类型是偏 SaaS / 工具站，而不是个人博客，可将第一人称叙事调整为产品/品牌视角，但其他语气、句长、主动语态、示例驱动等规则仍然适用。
 
 This document defines the **writing style, tone, and perspective** for all content in this project.
 
@@ -380,11 +384,11 @@ This document defines the **writing style, tone, and perspective** for all conte
 
 Write in **first-person**. Use “I/my” for individual experiences, and “we/our” when referring to shared family experiences.
 
-| Perspective | When to Use                    | Example                                                   |
-| ----------- | ------------------------------ | --------------------------------------------------------- |
-| I / my      | Personal thoughts or opinions  | I found the weather in our city unpredictable.            |
-| We / our    | Shared family experience       | We love spending weekends at local parks.                 |
-| You / your  | Addressing the reader directly | If you’re new here, you’ll love the coffee scene.         |
+| Perspective | When to Use                    | Example                                           |
+| ----------- | ------------------------------ | ------------------------------------------------- |
+| I / my      | Personal thoughts or opinions  | I found the weather in our city unpredictable.    |
+| We / our    | Shared family experience       | We love spending weekends at local parks.         |
+| You / your  | Addressing the reader directly | If you’re new here, you’ll love the coffee scene. |
 
 > Keep it conversational — like talking to a friend. Avoid corporate or “team” voice.
 
@@ -471,17 +475,7 @@ When editing drafts or AI outputs, apply these replacements:
 
 ---
 
-## 🗂 8. File Naming Convention
-
-| Type          | Folder           | Example Filename            |
-| ------------- | ---------------- | --------------------------- |
-| Blog Post     | `content/posts/` | `life-in-melbourne.md`      |
-| Writing Guide | `docs/`          | `writing-guidelines.md`     |
-| Draft Notes   | `docs/drafts/`   | `moving-checklist-draft.md` |
-
----
-
-## 🪶 9. Example Metadata (Front Matter)
+## 🪶 8. Example Metadata (Front Matter)
 
 ```yaml
 ---
@@ -494,7 +488,7 @@ draft: false
 ---
 ```
 
-## 💡 10. AI Writing Prompt (for reuse)
+## 💡 9. AI Writing Prompt (for reuse)
 
 Prompt for AI tools:
 
@@ -506,12 +500,12 @@ Include real feelings or small family details when possible.
 Avoid corporate tone. Use qualifiers (“for us”, “in my experience”) to stay authentic.
 ```
 
-## 🔗 12. Internal Links (Linking to Other Articles)
+## 🔗 10. Internal Links (Linking to Other Articles)
 
 Use internal links to help readers discover relevant posts and to keep navigation simple.
 
 - Link format: use site‑root absolute paths with the canonical slug, not full domain.
-  - Example: `[Top 10 Safest Councils](/top-10-safest-councils-in-melbourne-but-don-t-forget-to-check-the-suburbs/)`
+  - Example: `[Top 10 Safest Areas for Families](/top-10-safest-areas-for-families/)`
   - Include a trailing slash.
 - Where to place:
   - Contextual links inside paragraphs where it naturally helps.
@@ -521,7 +515,7 @@ Use internal links to help readers discover relevant posts and to keep navigatio
 - Cross‑linking: when two posts strongly relate, link both ways where useful.
 - Tags pages: it’s OK to link to tag hubs when relevant, e.g. `[Parenting](/tags/parenting/)`.
 
-Optional (advanced): some static site generators提供 `ref`/`relref` 等短代码，可根据文件路径生成链接并在目标缺失时直接报错。若项目使用此类工具，可优先采用短代码保持链接可维护性；否则使用 slug 路径是最简单、最通用的方式。
+Optional (advanced): some static site generators 提供 `ref`/`relref` 等短代码，可根据文件路径生成链接并在目标缺失时直接报错。若项目使用此类工具，可优先采用短代码保持链接可维护性；否则使用 slug 路径是最简单、最通用的方式。
 
 ### Related Block Template (Paste at End of Post)
 
@@ -542,7 +536,7 @@ Notes
 - Use the canonical slug path with trailing slash（或采用项目约定的统一 URL 规则）。
 - Keep it short (max 3 links) and truly relevant to the post.
 
-## 🔎 13. SEO & Images
+## 🔎 11. SEO & Images
 
 - Always add descriptive alt text to images. Replace generic text like “Section image” with meaningful descriptions (e.g., “Chart: monthly sign-ups for our product in 2024”).
 - Keep alt text concise (6–12 words), reflect what’s visible and relevant to the article.
