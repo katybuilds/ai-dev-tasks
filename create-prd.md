@@ -57,11 +57,11 @@ The generated PRD should include the following sections（顺序可视情况微�
 1.  **Introduction/Overview：** Briefly describe the feature and the problem it solves. State the goal.
 2.  **Goals：** List the specific, measurable objectives for this feature.
 3.  **User Stories：** Detail the user narratives describing feature usage and benefits.
-4.  **Interaction Flows（交互路径）：** Describe the key interaction paths step by step，从用户视角串起核心场景，例如：  
+4.  **Interaction Flows（交互路径）：** 用用户视角按步骤描述关键使用路径，只描述「用户做什么 → 系统在界面层面的可见响应」，不写实现细节和底层技术，例如：  
     - 从打开页面 / 扩展入口 → 触发功能（如打开 Popup、切换模式、选中文本出现气泡）→ 完成目标操作；  
-    - 常见设置流程（如进入 Options → 管理搜索引擎 / 白名单 → 保存并生效）；  
-    交互路径应强调「用户做了什么 → 系统怎么响应」，而不是重复功能点本身。
-5.  **Functional Requirements：** List the specific functionalities the feature must have. Use clear, concise language (e.g., "The system must allow users to upload a profile picture."). Number these requirements.
+    - 常见设置流程（如进入 Options → 管理搜索引擎 / 白名单 → 保存并生效）。  
+    若与功能描述有重叠，应在本节保留高层路径，在 Functional Requirements 中写清具体规则与边界。
+5.  **Functional Requirements：** 列出系统必须具备的具体功能与行为规则，包括：状态定义、输入输出、边界条件、错误处理等。使用清晰、可实现的语句（例如："The system must allow users to upload a profile picture."），并对重要需求进行编号。所有实现相关细节和业务规则应归入本节，而不是放在交互路径中。
 6.  **Non-Goals (Out of Scope)：** Clearly state what this feature will _not_ include to manage scope.
 7.  **Design Considerations (Optional)：** Link to mockups, describe UI/UX requirements, or mention relevant components/styles if applicable.
 8.  **Technical Considerations (Optional)：** Mention any known technical constraints, dependencies, or suggestions (e.g., "Should integrate with the existing Auth module").
