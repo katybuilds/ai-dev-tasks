@@ -11,8 +11,8 @@ To guide an AI assistant in creating a detailed, step-by-step task list in Markd
 - **Filename:** `tasks.md`
 - **Doc Role Note:** When generating `tasks.md`, you **must** add a short “文档角色说明” near the top of the document（通常放在主标题之后），用 1–3 句话说明：
   - 本文件用于跟踪当前项目的开发任务与进度，是执行层的操作清单；
-  - 行为逻辑与需求细节以 `docs/spec.md` 为准，视觉样式与交互细节以 `docs/style.md` 为准；
-  - 当任务与规格文档发生冲突时，需要先确认并更新规格文档，再调整任务列表。
+  - 行为逻辑与需求细节以 `docs/spec.md` 为准，视觉样式与交互细节以 `docs/style.md` 为准，页面结构与内容蓝图以 `docs/content.md` 为准，技术栈与基础设施选型以 `docs/tech.md` 为准；
+  - 当任务与上述规格文档发生冲突时，需要先确认并更新规格文档，再调整任务列表，**不得通过直接修改任务规避规格要求**。
 
 ## Process
 

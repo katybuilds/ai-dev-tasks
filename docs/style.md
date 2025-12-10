@@ -1,6 +1,8 @@
 # FocusSearch Style Guide
 
-文档角色说明：本文件定义本项目在 Web 端（扩展 Popup 与 Options 设置页）的视觉系统，回答「长什么样」「如何保持视觉一致」。它是前端样式实现手册，不涉及功能逻辑，行为与交互细节请以 `docs/spec.md` 为准；当两者冲突时，以 `spec.md` 为裁决源。
+文档角色说明：本文件定义 FocusSearch 在 Web 端（扩展 Popup 与 Options 设置页）的视觉系统，回答「长什么样」「如何保持视觉一致」。它是前端样式实现手册，不涉及功能逻辑或业务规则。行为与交互详见产品规格文档 `docs/spec.md`；若有冲突：**交互行为以规格文档为准，视觉细节以本文件为准**。
+
+项目摘要：Chrome / Chromium 浏览器扩展，偏工具型高效与中性理性风格，以暖色系 Amber (`#f59e0b`) 为主品牌色，搭配浅色背景与轻量阴影，优先保证可读性与操作清晰度。
 
 ---
 
@@ -312,9 +314,19 @@ Popup 中的开关（如 Search Mode、Disable links on this site）需有清晰
 
 ---
 
-## 7. Snippets（常用片段）
+## 7. 无障碍与可访问性（A11y）
 
-### 7.1 Popup 结构示例
+- 键盘可达：所有可点击元素（按钮、链接、自定义卡片等）必须可聚焦，优先使用原生 `<button>` / `<a>`，自定义可点击容器需显式添加 `role` 与 `tabindex="0"`。
+- 表单关联：每个输入控件都需要有对应的 `label`，通过 `for` / `id` 建立关联；错误或提示信息通过 `aria-describedby` 关联控件。
+- 对比度：主文案与背景的对比度建议 ≥ 4.5:1；次要文字和禁用状态在降低显著度的同时仍需保持可辨认，不以颜色作为唯一信息载体。
+- 焦点样式：统一使用 `focus-visible:ring-2 focus-visible:ring-ring` 等样式标识键盘焦点，避免移除浏览器默认 focus 样式而不提供替代。
+- 动效克制：避免大面积、持续性的闪烁或强烈动效；Hover 扩展的交互应在无 Hover 设备上也可通过 Focus / Active 状态或明显的颜色变化感知。
+
+---
+
+## 8. Snippets（常用片段）
+
+### 8.1 Popup 结构示例
 
 ```html
 <div class="w-[340px] px-4 py-3 bg-background text-foreground">
@@ -360,7 +372,7 @@ Popup 中的开关（如 Search Mode、Disable links on this site）需有清晰
 </div>
 ```
 
-### 7.2 Options 页标题与区块示例
+### 8.2 Options 页标题与区块示例
 
 ```html
 <main class="mx-auto max-w-3xl px-4 py-8 bg-background text-foreground">
@@ -395,4 +407,4 @@ Popup 中的开关（如 Search Mode、Disable links on this site）需有清晰
 
 ---
 
-本 `style.md` 作为 FocusSearch 项目的视觉单一来源。新增组件或页面时，应优先复用上述 tokens 与模式；如需引入新的视觉模式（例如 Dark Mode、新的组件家族），建议先在此文档中补充规范，再落地到代码实现。***
+本 `style.md` 作为 FocusSearch 项目的视觉单一来源。新增组件或页面时，应优先复用上述 tokens 与模式；如需引入新的视觉模式（例如 Dark Mode、新的组件家族），建议先在此文档中补充规范，再落地到代码实现。
