@@ -1,188 +1,93 @@
-# 部署决策与规范（Vercel + Webpack 3 静态站）
+# Product Requirements Document（PRD）
 
-本文记录与部署相关的技术规范与架构性决策，供后续开发与运维参考。实操与排查步骤请见 `docs/task.md` 的“经验库”。
+文档角色说明：本文件定义「做什么、怎么运作」——功能逻辑、交互流程与业务规则；具体颜色/字体/间距/组件样式等视觉细节统一收敛在 `docs/style.md`。  
+在本地查看效果：优先使用 `pnpm dev` 启动开发服务器，如未安装 pnpm，可按照项目 README 使用 npm/yarn。  
+语言使用：内部说明文档使用中文，代码与对外界面使用英文；详细规则参见 `rules.md` 的语言使用规范。  
+如需本地完工提示，可参考 `rules.md` 中的「本地完工提示」命令。
 
-## 框架与运行时
-- 框架识别：使用 Vercel 的 `Other/Static` 模式（不是 Next.js）。
-- Node 运行时：遵循 `package.json` 中 `"engines": { "node": "22.x" }`，以满足 Vercel 最新运行时要求。
-- 忽略目录：将 `.next/` 加入 `.vercelignore` 与 `.gitignore`，避免被误识别为 Next.js。
+## 1. Introduction / Overview
 
-## 构建与输出
-- 打包工具：沿用现有 Webpack 3 配置。
-- publicPath：统一为 `'./'`，以支持在子目录（如 `/web/`）下相对加载资源。
-- 产物目录：标准化到 `dist/`。
-  - `dist/index.html`：Landing 页（仓库根 `index.html` 的拷贝）。
-  - `dist/web/`：经典编辑器（由 Webpack 产出的 `web/` 拷贝）。
-  - `dist/static/`：静态图片、数据等资源。
-- 组合脚本：`scripts/compose-dist.js` 负责将打包产物组织进 `dist/`。
-- 构建命令：`npm run build` → `rimraf web && webpack --config=./build/webpack.prod.conf.js && node scripts/compose-dist.js`。
+Build a fully client-side Minecraft pixel art editor experience directly on the main site (Landing + `/web/` classic editor), with static tutorials/privacy/terms pages. Users should seamlessly upload images/schematics, configure conversion options, edit, and export without iframes or path issues, while tutorials guide usage and related topics.
 
-## 路由策略
-- 使用 Vercel `redirects` 保证尾部斜杠：
-  - `/editor` → `/web/`
-  - `/web` → `/web/`
-- 选择“重定向”而非“重写”的原因：
-  - 重写不会改变地址栏，可能导致页面中的相对路径按错误的基准解析（出现 `index.<hash>.js` 404）。
-  - 重定向会将地址规范化为 `/web/`，确保 `./index.<hash>.js` 解析为 `/web/index.<hash>.js`。
+## 2. Goals
 
-## 站点内容页与路由（Tutorials / Privacy / Terms）
+- Ensure classic editor runs on main site with stable resource loading (`./` publicPath, redirect-safe URLs).
+- Provide reliable end-to-end flow: Upload → Settings → Editor → Convert → Return/Home.
+- Deliver consistent UI text in English and theme tokens per `docs/style.md`.
+- Publish tutorials/privacy/terms with clean URLs and working navigation.
+- Keep deployment predictable on Vercel (Node 22, static/Other framework mode).
 
-- 路由与路径（同一主域，无子域）
-  - Tutorials：`/tutorials/`（目录页），`/tutorials/getting-started`
-  - 法务：`/privacy`、`/terms`
-  - 依赖 `vercel.json` 的 `cleanUrls: true`，将 `*.html` 清洗为无后缀 URL。
-- 导航与信息架构
-  - 根页顶部导航新增英文项：Tutorials（`./tutorials/`）、Privacy（`./privacy`）、Terms（`./terms`）。
-  - Tutorials 目录页展示文章卡片（标题、摘要、关键词、阅读时长），按主题（Pixel Art / Schematics / Paintings / Roof / Skins / Command Blocks）组织。
-- 内容页规范
-  - Tutorials/Article（静态 HTML）包含：Title/H1、引言、（长文）目录、分步章节、Pro Tips、FAQ、CTA（返回工具与相关教程）。
-  - 法务页（英文）：简洁披露 Google Analytics / Microsoft Clarity / AdSense 的使用，列出联系邮箱与开源仓库链接。
-  - 风格：沿用 `app/style.css` 与 `app/styles/overrides.css` 的设计令牌；避免大段内联样式。
-- 构建与输出
-  - `scripts/compose-dist.js` 复制 `pages/` 到 `dist/`：
-    - `pages/tutorials/` → `dist/tutorials/`
-    - `pages/privacy.html`、`pages/terms.html` → 拷贝到 `dist/` 根（配合 cleanUrls 访问 `/privacy`、`/terms`）
-- SEO 与可访问性
-  - 每页提供 `<title>`、meta description（≤160 字符）、基础 OpenGraph/Twitter、canonical 指向主域。
-  - 语义化标题层级（H1→H2→H3）、图片 `alt`、可见 focus 样式与键盘可达性。
-- QA/回归
-  - 新路径 `/tutorials/`、`/tutorials/getting-started`、`/privacy`、`/terms` 无 404；移动端排版可读；控制台无报错；Network 无 404。
+## 3. User Stories
 
-### 命名与收录（新增）
+- As a creator, I can upload an image or schematic and immediately enter the editor to start converting.
+- As a user, I can adjust block sets, dimensions, crop/aspect options, and proceed to editing with correct previews.
+- As an editor user, I can use tools/shortcuts (brush/undo/redo/zoom/original view) without UI breakage.
+- As a user, I can export in multiple formats (CommBlock/mcfunction/Raw/Manual), copy, or download results.
+- As a visitor, I can read tutorials and legal pages from the navigation without 404s and with mobile-friendly layout.
 
-- Slug 规范：教程页统一使用小写 kebab-case，挂载于 `/tutorials/`（例如：`/tutorials/pixel-art-complete-guide`）。
-- 站点地图：新增或更新教程/法务页面时，同步在 `public/sitemap.xml` 添加对应 URL（遵循 cleanUrls，无 `.html` 后缀）。
+## 4. Glossary
 
-## 本地与线上差异
-- 本地静态服务器不会读取 Vercel 的 rewrites/redirects。
-- 本地验证 `/editor` 行为请以线上结果为准；本地请直接访问 `/web/index.html` 或 `/web/`。
-- 推荐本地预览命令：`npx http-server dist -p 7787 --cors -c-1`。
+| Term | 中文解释 | UI 文案（外显） |
+| --- | --- | --- |
+| Landing | 站点根首页（含导航、Upload 按钮、教程入口） | Landing |
+| Classic Editor | 经典像素画编辑器（/web/ 页面） | Editor |
+| Start Screen | 编辑器上传入口界面 | Start |
+| Settings Screen | 编辑器设置界面（模式、尺寸、裁剪等） | Settings |
+| Editor Screen | 编辑器主界面（工具栏、画布、调色板） | Editor |
+| Convert Screen | 导出界面（格式选择、计数、复制/下载） | Convert |
+| Tutorials | 教程目录与文章集合 | Tutorials |
+| Clean URL | 去除 `.html` 后缀的访问路径 | （不显示文案） |
 
-## 代码组织与约定
-- 不提交 `web/`（构建产物）到仓库；仅发布 `dist/` 到 Vercel。
-- `build/*` 为打包配置，禁止在 `.vercelignore` 中忽略该目录。
-- 如需切换为“仅编辑器”站点，可将 Vercel Output Directory 改为 `web`，并将 Landing 并入编辑器或移除根页。
+## 5. Interaction Flows
 
-## 后续演进建议
-- 依赖升级路线：Webpack 5 + Babel 7，替换废弃 loader 与插件，构建时移除 `console.*`。
-- 路由与路径的自动化校验：在 CI 中加入资源 404 扫描（检查 `index.html` 内引用的脚本与实际文件一致）。
+- Landing upload → redirect to `/web/`: user clicks “Upload Image”, selects file, sessionStorage passes blob URL/name/type, page redirects to `/web/`, Start Screen auto-loads file, then user can proceed to Settings.
+- Settings flow: user selects mode (All/Survival/Custom with tooltips), adjusts width/height with link toggle, crop/ignore aspect ratio, sees preview constrained to square container, clicks “Next” to enter Editor.
+- Editor flow: user switches tools (P/B/U/E/Z/G), adjusts brush size (`[`/`]`), moves canvas with arrows, toggles Original view (`O`), uses undo/redo (Ctrl+Z/Ctrl+Y), edits without overflow/wrap issues, then proceeds to Convert.
+- Convert flow: user switches export modes (CommBlock/mcfunction/Raw/Manual), sees reconvert prompt after edits, can copy or download with editable filename for mcfunction, then return back to Editor/Settings preserving state.
+- Tutorials/Legal navigation: from top nav go to `/tutorials/`, individual articles, `/privacy`, `/terms`; clean URLs resolve without `.html`; mobile layout remains readable.
 
-## UI/交互规范（设置页与预览）
+## 6. Functional Requirements
 
-- 预览区域
-  - 预览图始终限制在预览容器内，不得溢出到右侧设置栏。
-  - 容器为响应式正方形：宽度占满列，最大宽度 600px，保持 1:1 比例；图像 `max-width/max-height: 100%`，不得突破容器。
+- FR1 Landing upload: provide hidden file input + “Upload Image” button; on selection, store `{url,name,type}` in sessionStorage and redirect to `/web/`; editor Home button returns to Landing and clears temporary state.
+- FR2 Start Screen auto-load: on init, if sessionStorage entry exists, load image/schematic via existing upload handlers, then clear the entry; maintain width/height/state initialization.
+- FR3 Settings behavior: modes limited to All/Survival/Custom with hover tooltips; “Image size” block in right column above convert CTA; width/height labels below inputs via pseudo-elements; crop/ignore aspect ratio checkboxes aligned; preview container square (max 600px) with image constrained.
+- FR4 Height limit modal: when height >256 and Ignore height limit unchecked, show modal with Yes/Ignore/Cancel; Yes clamps height to 256 (relink width if locked), Ignore checks flag and continues, Cancel aborts conversion.
+- FR5 Editor layout: `.editor-screen .columns` flex nowrap; right palette column fixed basis/max-width with responsive steps; workarea min-height 700px; no wrap/overflow causing palette to fall to next line; chessboard background preserved.
+- FR6 Shortcuts & tools: tools P/B/U/E/Z/G match sidebar selection; brush size reflects shortcuts; arrow keys move canvas; O toggles Original; Ctrl+Z/Ctrl+Y undo/redo; no blocking errors.
+- FR7 Convert functions: all four export modes functional; copy shows confirmation; mcfunction download filename editable; reconvert prompt appears after edits and regenerates output.
+- FR8 Tutorials/legal pages: static HTML pages available at clean URLs; nav links from Landing and tutorials index resolve; pages include title/meta/OG/canonical, mobile-friendly typography.
+- FR9 Sitemap & SEO: sitemap includes tutorials and legal routes (clean URLs); pages use OG/Twitter basics and descriptions ≤160 chars.
+- FR10 Deployment constraints: build uses `rimraf web && webpack --config=./build/webpack.prod.conf.js && node scripts/compose-dist.js`; Webpack `publicPath: './'`; compose-dist outputs `dist/` with landing, `web/`, and static assets; Vercel uses redirects `/editor`→`/web/`, `/web`→`/web/`, framework null, Node 22.
 
-- 方块组选择按钮
-  - 仅显示短标签：“All”“Survival”“Custom”。
-  - 鼠标悬停显示说明（tooltip）：
-    - All: All blocks
-    - Survival: Blocks from survival mode (excl. The End)
-    - Custom: Choose your own blocks
-  - 按钮为紧凑尺寸（较小的内边距与阴影），避免占据过多空间或遮挡预览。
+## 7. Non-Goals
 
-- 图片尺寸与裁剪设置的位置
-  - 将以下控件从左侧预览列移动到右侧设置列，并放置在“Convert to Pixel Art”按钮之上：
-    - “Image size” 标签（不再在标签后显示 WxH 数字，数值以下方宽高输入与“= xxx blocks”显示为准）。
-    - 宽/高输入框与连锁图标，以及“= blocks”统计。
-    - 勾选项：“Crop image”“Ignore aspect ratio”。
-  - 该区域使用横向弹性排版，输入与复选项对齐整齐，窄屏下允许换行。
+- No server-side rendering or Next.js migration in this scope.
+- No dynamic auth, accounts, or payments.
+- No redesign of visual tokens beyond what `docs/style.md` defines.
+- No dependency major upgrades (e.g., Webpack 5) in this PRD scope.
 
-- 文字与字号
-  - 除“方块组按钮”文字与“Image size”标签外，设置页其余文字（复选项、统计文案、表头、说明等）字号统一，继承 `app/style.css` 的正文字号（当前为 `0.95rem`）。
-  - 不在 `overrides.css` 中单独放大/缩小这些文字，保持全局一致性。
+## 8. Design Considerations (UI/UX)
 
-- 宽/高标签位置
-  - “Width”“Height”提示文案显示在对应输入框下方（非输入框内、非输入框上方）。
-  - 可用伪元素实现（建议 `::after`），字号小于正文（约 11px），颜色为次要文本色，保证可读不喧宾夺主。
+- Follow `docs/style.md` for tokens, typography, spacing; avoid inline styles except necessary overrides.
+- Keep all surface copy in English; tooltips match Glossary UI labels.
+- Ensure focus states, hover, and error states remain visible; no sticky header on Landing.
 
-### 高度上限提示（自定义弹窗）
+## 9. Technical Considerations
 
-- 触发条件
-  - 当高度值 `> 256` 且“Ignore in‑game height limit”未勾选时，点击“Convert to Pixel Art”弹出确认弹窗。
+- Vercel: set framework `null` (Other/Static), Node 22 (per `package.json.engines`); `.next/` ignored to avoid Next.js detection; `build/` must not be ignored.
+- Paths: always access `/web/` with trailing slash; rely on redirects instead of rewrites to keep relative paths correct.
+- Output: `dist/index.html` (Landing), `dist/web/` (editor bundle), `dist/static/` (assets); tutorials/privacy/terms copied to `dist/` via `scripts/compose-dist.js`.
+- Local preview: `npx http-server dist -p 7787 --cors -c-1` for static verification; local rewrites differ from Vercel redirects.
 
-- 弹窗与按钮
-  - 使用内置模态（`#modal-height-limit`），提供 3 个操作按钮：
-    - Yes：将高度设为 `256` 后继续；若锁定比例，则按比例更新宽度；刷新“= blocks”计数。
-    - Ignore：自动勾选“Ignore in‑game height limit”，按原尺寸继续。
-    - Cancel：关闭弹窗，不进行转换，停留在设置页。
+## 10. Success Metrics
 
-- 行为与导航
-  - 选择 Yes 或 Ignore 后，按当前设置进入编辑器流程；Cancel 不做任何修改。
-  - 弹窗为统一样式按钮：主按钮（Yes）为深色强调，Ignore/Cancel 为浅色次级。
+- End-to-end flow success rate (upload → convert) ≥ 99% across modern browsers in QA.
+- Zero 404s on `/`, `/web/`, `/editor`, tutorials, privacy, terms, and bundled assets.
+- No layout wrap/overflow issues in Editor at target breakpoints; mobile tutorials readable without horizontal scroll.
+- Build and deploy pipelines pass without manual intervention on Vercel.
 
-## 编辑器尺寸与嵌入规范（彻底规避换行/挤压）
+## 11. Open Questions
 
-本节统一规定编辑器在独立页与 Landing 嵌入两种场景的尺寸、布局与断点，避免右侧 Block Palette 被“挤到第二行”等问题。
-
-### 独立编辑器页（/web/）
-
-- 容器与列
-  - `.editor-screen .columns` 使用 `display:flex` 并强制 `flex-wrap: nowrap !important`，列不可换行。
-  - 高度：`height: calc(100vh - 120px)`（预留 Topbar + Footbar），保证底部 Status bar 可见。
-  - 左侧画布列：`flex: 1 1 auto`，可自由扩展填满剩余空间。
-  - 右侧 Block Palette 列：基础 `flex-basis: 300px`、`max-width: 340px`；随宽度收缩的断点：
-    - ≤1500px → `flex-basis: 280px / max-width: 320px`
-    - ≤1380px → `flex-basis: 260px / max-width: 300px`
-  - 页面最小高度：`.workarea { min-height: 700px }`。
-
-- 画布区
-  - `.editor-canvas` 占据左列（去除额外 margin/padding），背景棋盘格维持 25px。
-
-### Landing 嵌入（iframe 预览，仅作为演示）
-
-- Iframe 外尺寸与高度自适应
-  - 宽度：两档（COMPACT 1140 / EXPANDED 1600）。
-  - 高度按“屏幕状态”取值：
-    - Start（上传）：固定 220 px
-    - Settings（设置）：固定 580 px
-    - Editor（编辑）：100vh（`height = window.innerHeight`）
-  - 页面滚动：允许；iframe 内部不滚动（`scrolling='no'`）。不要锁定 `body` 的 `overflow`。
-  - 自动定位：当嵌入内从 Start 切换到 Settings 或 Editor 时，宿主页面自动将编辑器卡片滚动到视窗顶部（约 12px 顶部留白），减少用户手动滚动。
-  - 不显示滚动条：iframe `scrolling = 'no'`；iframe 内 compact 模式强制 `body.compact-mode { overflow: hidden; }`。
-  - 随窗口 resize 重新计算高度，确保不产生页面滚动条。
-
-- Iframe 内紧凑样式（compact-mode）
-  - 注入 `body.compact-mode` 限制溢出并收紧外边距，仅用于预览，不影响独立页。
-
-- 重要：生产/预览一律访问 `/web/`（带尾斜杠），否则相对路径会解析为错误位置导致空白页。
-
-### 导航与头部（无粘性）
-
-- Landing 页的页头 header 不使用粘性定位（sticky）。
-  - 规则：`header { position: static; top: auto; backdrop-filter: none; background: transparent; }`
-  - 原因：避免粘性头部占用垂直可视空间、与 iframe 预览或滚动产生遮挡与高度计算偏差；在不同浏览器上表现一致。
-
-### 统一文本与控件位置（回顾）
-
-- 设置页文字
-  - 除方块组按钮与 “Image size” 标签外，其他均继承正文字号（当前 `0.95rem`）。
-  - “Width/Height” 标签位于输入框下方，使用 `::after` 实现（约 11px，次要色）。
-
-- 按钮与工具提示（Tooltips）
-  - 方块组按钮仅显示：All / Survival / Custom；副文隐藏。
-  - 悬停文案：
-    - All: All blocks
-    - Survival: Blocks from survival mode (excl. The End)
-    - Custom: Choose your own blocks
-
-- 图片尺寸区块位置
-  - 将 “Image size + 宽高输入 + Crop Image/Ignore Aspect Ratio” 放在右侧设置列、提交按钮上方。
-
-### 预览容器（Settings 左侧）
-
-- 容器：正方形、`max-width: 600px`、`aspect-ratio: 1/1`、`overflow:hidden`。
-- 预览图：`max-width:100% / max-height:100%`，禁止拖拽选择。
-- 初始化时机：在切换到 Settings 后再初始化/显示裁剪层（SvgCroppy）。若为空图问题复现，使用微任务或 `requestAnimationFrame` 延迟 1 帧后初始化。
-
-### Landing 上传直达编辑器（Plan A 概要）
-
-- Landing：隐藏文件输入 + “Upload Image” 按钮，选择后：
-  - `sessionStorage.landingUpload = { url, name, type }`（`url` 为 `URL.createObjectURL(file)`）。
-  - 先平滑滚动到 `#playground`（让用户获得“已开始进入编辑器”的空间感），随后在 ~200ms 内跳转到 `./web/`。
-- 编辑器启动：`app/screens/start.js` 在 `init()` 读取并加载：
-  - `type=image` → `uploadImage(blobUrl)`；`type=schem` → `fetch(blobUrl)` → `uploadSchematic(blob)`。
-  - 读取完清除该项，避免二次加载。
-- 顶部栏提供 `Home`，可返回 `../index.html`。
-
-以上尺寸/交互规范为对齐标准，任何改动需同步更新本节，避免再出现“编辑器尺寸/换行”问题。
+- Do we need additional tutorials beyond current roadmap (e.g., command blocks, skin creator) prioritized in this release?
+- Should we add automated 404 scanning in CI to enforce resource path integrity?
+- Any minimum browser support matrix to formalize (e.g., last 2 versions vs. specific ESR)?***
