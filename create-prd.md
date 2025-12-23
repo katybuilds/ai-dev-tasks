@@ -57,16 +57,39 @@ The generated PRD should include the following sections（顺序可视情况微�
 1.  **Introduction/Overview：** Briefly describe the feature and the problem it solves. State the goal.
 2.  **Goals：** List the specific, measurable objectives for this feature.
 3.  **User Stories：** Detail the user narratives describing feature usage and benefits.
-4.  **Interaction Flows（交互路径）：** 用用户视角按步骤描述关键使用路径，只描述「用户做什么 → 系统在界面层面的可见响应」，不写实现细节和底层技术，例如：  
-    - 从打开页面 / 扩展入口 → 触发功能（如打开 Popup、切换模式、选中文本出现气泡）→ 完成目标操作；  
+4.  **Glossary（术语表）：** 用于统一内部技术术语、规格文案、界面展示文案的对应关系，避免开发、文档和 UI 中出现命名混乱，便于在规格、技术实现和讨论时对齐概念。  
+    Glossary 至少应包含以下三列：
+
+    - **Term（英文内部术语）**：代码、规格文档、任务列表中使用的英文名；
+    - **中文解释**：简要说明该术语的含义与使用场景，帮助理解规格意图；
+    - **UI 文案（外部呈现）**：用户界面中实际显示的文字（按钮/标题/标签等）。
+
+      以表格形式维护。示例：
+
+    | Term        | 中文解释     | UI 文案（外显）            |
+    | ----------- | ------------ | -------------------------- |
+    | Search Mode | 搜索模式     | Search Mode                |
+    | Copy Mode   | 复制模式     | Copy Mode                  |
+    | Link Guard  | 链接禁用功能 | Disable links on this site |
+
+    Glossary 使用规则：
+
+    - **内部统一使用 Term 列中的英文术语**：包括代码、注释、技术文档（`spec.md` / `tech.md`）、任务列表（`tasks.md`）等；
+    - **UI 一律使用「UI 文案」列**：不得直接把内部术语原样展示给终端用户，除非 Term 与 UI 文案刻意保持一致；
+    - **新增功能时必须更新 Glossary**：一旦出现新概念（例如新模式、新开关、新页面），在扩展规格之前必须先在 Glossary 中新增对应条目；
+    - **AI 在生成 spec/style/tasks 时必须读取并遵循 Glossary**：生成 PRD、样式文档、任务列表时，应优先复用 Glossary 中已有术语与 UI 文案，确保前后一致；
+    - **术语不清晰或冲突时必须先确认**：如 AI 发现现有术语含义不清、互相重叠或与 UI 文案冲突，必须先向用户提问澄清，再在 Glossary 中新增或调整条目，避免自行造词。
+
+5.  **Interaction Flows（交互路径）：** 用用户视角按步骤描述关键使用路径，只描述「用户做什么 → 系统在界面层面的可见响应」，不写实现细节和底层技术，例如：
+    - 从打开页面 / 扩展入口 → 触发功能（如打开 Popup、切换模式、选中文本出现气泡）→ 完成目标操作；
     - 常见设置流程（如进入 Options → 管理搜索引擎 / 白名单 → 保存并生效）。  
-    若与功能描述有重叠，应在本节保留高层路径，在 Functional Requirements 中写清具体规则与边界。
-5.  **Functional Requirements：** 列出系统必须具备的具体功能与行为规则，包括：状态定义、输入输出、边界条件、错误处理等。使用清晰、可实现的语句（例如："The system must allow users to upload a profile picture."），并对重要需求进行编号。所有实现相关细节和业务规则应归入本节，而不是放在交互路径中。
-6.  **Non-Goals (Out of Scope)：** Clearly state what this feature will _not_ include to manage scope.
-7.  **Design Considerations (Optional)：** Link to mockups, describe UI/UX requirements, or mention relevant components/styles if applicable.
-8.  **Technical Considerations (Optional)：** Mention any known technical constraints, dependencies, or suggestions (e.g., "Should integrate with the existing Auth module").
-9.  **Success Metrics：** How will the success of this feature be measured? (e.g., "Increase user engagement by 10%", "Reduce support tickets related to X").
-10. **Open Questions：** List any remaining questions or areas needing further clarification.
+      若与功能描述有重叠，应在本节保留高层路径，在 Functional Requirements 中写清具体规则与边界。
+6.  **Functional Requirements：** 列出系统必须具备的具体功能与行为规则，包括：状态定义、输入输出、边界条件、错误处理等。使用清晰、可实现的语句（例如："The system must allow users to upload a profile picture."），并对重要需求进行编号。所有实现相关细节和业务规则应归入本节，而不是放在交互路径中。
+7.  **Non-Goals (Out of Scope)：** Clearly state what this feature will _not_ include to manage scope.
+8.  **Design Considerations (Optional)：** Link to mockups, describe UI/UX requirements, or mention relevant components/styles if applicable.
+9.  **Technical Considerations (Optional)：** Mention any known technical constraints, dependencies, or suggestions (e.g., "Should integrate with the existing Auth module").
+10. **Success Metrics：** How will the success of this feature be measured? (e.g., "Increase user engagement by 10%", "Reduce support tickets related to X").
+11. **Open Questions：** List any remaining questions or areas needing further clarification.
 
 ## Target Audience
 
