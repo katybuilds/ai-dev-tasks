@@ -1,109 +1,167 @@
-++ docs/style.md
 # Pixel Art Generator – UI Style Guide
 
-本指南同步 `backup/docs/STYLE-GUIDE.md` 的核心设计令牌，作为 landing page 与经典编辑器的统一参考。
+文档角色说明：本文件定义产品在 Web 端的视觉系统，回答「长什么样」「如何保持视觉一致」。它是前端样式实现手册，不涉及功能逻辑或业务规则。行为与交互详见产品规格文档（如 `spec.md` / `docs/spec.md`）。若有冲突：**交互行为以规格文档为准，视觉细节以本文件为准**。
 
-## 1. 基础设计令牌（Design Tokens）
+项目摘要：工具型像素艺术编辑器（Landing + `/web/`），调性简洁、高对比、工具型高效；主色 #0f172a；布局密度中等偏紧凑；字体为 Plus Jakarta Sans（sans）、Lora（serif）、Roboto Mono（mono）。
 
-- **字体**
-  - Sans：Plus Jakarta Sans（全站默认）
-  - Serif：Lora（备用）
-  - Mono：Roboto Mono（代码/等宽）
-- **颜色**（与 `backup/docs/STYLE-GUIDE.md` 一致）
-  - Background: `#fdfdfd`
-  - Foreground: `#000000`
-  - Primary / Secondary / Accent：`#000000` / `#f0f0f0` / `#f0f0f0`
-  - Card / Popover：`#ffffff` / `#fdfdfd`
-  - Muted：`#f7f7f7`，Muted Foreground：`#6f6f6f`
-  - Border：`#ebebeb`
-  - Input：`#f0f0f0`
-  - Ring：`#000000`
-  - Destructive：`#d33b2f`
-  - Chart 配色：`#4cc9f0`、`#6d28d9`、`#b8b8b8`、`#ebebeb`、`#8f8f8f`
-  - Sidebar tokens：参考 STYLE-GUIDE，命名保持 `--color-sidebar-*`
-- **圆角**
-  - base: 4px；lg: 8px；xl: 12px；full: 9999px
-- **阴影**
-  - 卡片：`0 6px 16px rgba(15,23,42,0.12)`
-  - 按钮：`0 10px 22px rgba(15,23,42,0.08)`；主按钮 hover：`0 18px 36px rgba(99,102,241,0.33)`
+## 1. 基础 Design Tokens
 
-## 2. 版心与间距
+### 1.1 字体（Typography Fonts）
 
-- 页面容器：`max-width: 1080px`，居中并使用 `padding: 0 24px`
-- 垂直节奏：区块 `padding: 48px 0`（桌面），移动端可收紧为 `32px`
-- 列表/栅格间距：`gap: 24px`（移动端 16px）
-- Landing 页面内嵌经典编辑器（Playground）：
-  - 外层容器 `max-width: 1340px`，与主版心拉开以容纳工具面板。
-  - 高度规则按“上传 → 设置 → 编辑”三步流分级：
-    - Start（上传）：高度 220px（精简占位）
-    - Settings（设置）：高度 580px（足够显示预览与控件）
-    - Editor（编辑）：高度 100vh（等于 `window.innerHeight`），不出现内部滚动条。
-  - iframe 内部 `scrolling='no'`；页面允许滚动（不锁 `body` 的 `overflow`）。
+- Sans（全站默认）：`"Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif`
+- Serif（文章/长文可选）：`"Lora", "Times New Roman", serif`
+- Mono（代码/数字对齐）：`"Roboto Mono", ui-monospace, SFMono-Regular, monospace`
+- 表单控件继承字体：`input, select, textarea, button { font-family: inherit; }`
 
-## 3. 排版体系
+### 1.2 颜色系统（Color System）
 
-- H1：`clamp(2.5rem, 6vw, 3.5rem)`，bold
-- H2：`clamp(2rem, 5vw, 2.5rem)`
-- H3：`20–22px`
-- Eyebrow：`0.75rem`、`letter-spacing: 0.30em`、全部大写
-- 正文：`16px`，`line-height: 1.6`
-- 次要文本：使用 `var(--color-muted-foreground)`
+- `background`: `#fdfdfd`
+- `foreground`: `#0f172a`
+- `primary` / `primary-foreground`: `#0f172a` / `#ffffff`
+- `secondary` / `secondary-foreground`: `#f0f0f0` / `#0f172a`
+- `accent` / `accent-foreground`: `#e2e8f0` / `#0f172a`
+- `card` / `card-foreground`: `#ffffff` / `#0f172a`
+- `popover` / `popover-foreground`: `#fdfdfd` / `#0f172a`
+- `muted` / `muted-foreground`: `#f7f7f7` / `#6f6f6f`
+- `border` / `input` / `ring`: `#ebebeb` / `#f0f0f0` / `#0f172a`
+- `destructive` / `destructive-foreground`: `#d33b2f` / `#ffffff`
+- Chart palette（按需使用）：`#4cc9f0`, `#6d28d9`, `#b8b8b8`, `#ebebeb`, `#8f8f8f`
+- Sidebar tokens：沿用 `--color-sidebar-*` 命名，数值同上色板。
 
-## 4. 组件约定
+Tailwind 对应：将上述 token 映射到 `theme.extend.colors`，保留语义命名；`ring` 与 `primary` 颜色保持一致。
 
-- **按钮**：默认圆角 `999px`（胶囊）；文本 `0.05em` letter-spacing；hover 有轻微上浮
-  - 主 CTA (`.primary-btn`，例如 “Launch Editor” / “Start Converting”)：`padding: 12px 22px`，`display: inline-flex`，背景 `var(--primary)`，文字 `#fff`、`font-weight: 600`、全部大写；阴影 `0 12px 22px -16px rgba(15,23,42,0.7)`，hover `box-shadow: 0 16px 30px -18px rgba(15,23,42,0.55)` 并 `translateY(-2px)`；focus-visible 轮廓 `2px solid var(--accent)`、`outline-offset: 4px`
-  - Start 屏幕中的文件上传触发器与主 CTA 共用上述规格（无图标，仅文本 “Upload File”）
-- **图标按钮**：44px 正圆，边框 `--color-border`，hover 背景 `--color-muted`
-- **输入框**：高度 42px，圆角 12px，边框 `1px solid --color-border`，focus `box-shadow: 0 0 0 2px var(--color-ring)`
-- **卡片**：圆角 24px，边框 `--color-border`，阴影使用卡片 shadow
-- **标签/Chips**：圆角 999px，边框 `--color-border`，背景 `#fff`
-- **Modal**：遮罩 `rgba(0,0,0,0.5)`，面板使用卡片样式，最大宽度 640px
+### 1.3 圆角（Border Radius）
 
-- **上传区（Start Screen）**
-  - DOM 结构：`section.start-screen > div.start-simple`；内部只包含上传按钮与提示语
-  - 按钮：使用 `.button-primary`，上层 `<label>` 包裹透明 `input[type=file]`，无额外图标
-  - 提示文本：单行 `Drop an image or .schematic file here (up to 15 MB)`
-  - 布局：`start-simple` 采用 `flex` 居中，垂直间距 `gap: 18px`，整体宽度 90%
+- `radius.sm`: 4px（小型控件）
+- `radius.md`: 8px（输入、次级按钮）
+- `radius.xl`: 12px（常用卡片/输入）
+- `radius.2xl`: 24px（卡片、大型容器）
+- `radius.full`: 9999px（Tag、胶囊按钮、图标圆钮）
 
-## 5. 动效与交互
+### 1.4 阴影（Shadow）
 
-- Hover：轻微上浮 `translateY(-1px)`，阴影增强（仅主按钮）
-- Focus：`outline: none` + `box-shadow: 0 0 0 2px var(--color-ring)`
-- Disabled：`opacity: 0.5`，`pointer-events: none`
+- 卡片：`0 6px 16px rgba(15,23,42,0.12)`
+- 轻量按钮：`0 10px 22px rgba(15,23,42,0.08)`
+- 主按钮 hover：`0 18px 36px rgba(99,102,241,0.33)`
+- 在 Tailwind `boxShadow` 中命名为 `card`、`elevated`、`primary-cta` 以便复用。
 
-## 6. 响应式指引
+### 1.5 品牌元素与图标（Branding & Iconography）
 
-- 桌面优先，移动端将两列布局改为上下栈叠
-- 数字输入、按钮等在 `<768px` 下使用 `width: clamp(120px, 40vw, 200px)` 保持可用宽度
+- Logo：使用与主色契合的 SVG，导航建议尺寸 `h-8 w-8`；渐变可用 `primary` 不同明度。
+- Favicon：提供 32x32 SVG/PNG；与 Logo 保持一致。
+- 图标库：优先使用一致的矢量库（如 Material Symbols 或 Lucide）；图标大小约 `24px`。
 
-## 7. 无障碍
+## 2. Layout 与间距（Layout & Spacing）
 
-- 所有交互元素需提供可见 focus 样式与 ARIA 标签
-- 表单控件关联 `<label>`，错误提示使用 `var(--color-destructive)`
+- 页面容器：`max-width: 1080px; padding: 0 24px; margin: 0 auto;`
+- Landing 内嵌编辑器容器：`max-width: 1340px`，用于容纳工具面板。
+- 垂直节奏：section `padding: 48px 0`（移动端 `32px`）；区块内部 `gap/space-y: 20–24px`，移动端收紧至 `16px`。
+- 列表/栅格：桌面 `gap: 24px`，移动端 `gap: 16px`。
+- 经典编辑器高度（iframe 已移除，但保持约束用于对齐）：Start 220px、Settings 580px、Editor 100vh，不在编辑器内部产生滚动条。
+- 法务/教程页容器：`mx-auto max-w-3xl px-4 py-10`，段落使用 `space-y-2~6`。
 
-## 8. 实施说明
+## 3. Typography 体系
 
-- `app/style.css` 已引入上述 token，请在新样式中直接使用相应变量。
-- 重写旧 Bulma 样式时，优先使用这里的颜色/字体令牌，避免硬编码。
-- 编辑器的新增/调整按钮、卡片、输入等，请参考本指南中的尺寸与交互规则。
+- H1：`clamp(2.5rem, 6vw, 3.5rem)`，`font-weight: 700`
+- H2：`clamp(2rem, 5vw, 2.5rem)`，`font-weight: 600`
+- H3：`20–22px`，`font-weight: 600`
+- Eyebrow：`0.75rem`，`letter-spacing: 0.30em`，全大写
+- 正文：`16px`，`line-height: 1.6`，颜色 `foreground`
+- 次要文本：`text-sm`，颜色 `muted-foreground`
+- 语言：所有 UI 文案保持英文；内部说明可用中文。
 
-## 9. 组件样式基线（2025 Q4）
+## 4. 组件样式
 
-| 组件 | 当前类名 | 关键属性 |
-| --- | --- | --- |
-| 主按钮 | `.button-primary` | `display: inline-flex`、`padding: 12px 22px`、圆角 `999px`、背景 `#0f172a`、hover 提升 |
-| 次级按钮 | `.button-primary.light` / `.button-primary.small` | 明亮外观、细边框，或缩小尺寸 |
-| Upload 触发器 | `.button-primary` | 与主按钮同步，无图标 |
-| Block Group 卡片 | `.settings-screen .block-groups .box` | 栅格布局、`border-radius: 18px`、浅阴影，高亮态（含 `.box-selected` / `.box.is-selected`）使用深灰描边与阴影 |
-| Dropzone | `#start-dropzone` | 中心对齐、圆角 24px、无边框，紧凑模式宽度 `90%` |
-| 导出计数器 | `.convert-screen .counter` | 内边距 `0.5rem`、圆角 20px、深灰背景 |
+### 4.1 按钮（Buttons）
 
-如需新增组件，请在此表记录名称、类名与设计说明。
+- 主 CTA `.button-primary`（如 “Launch Editor” / “Start Converting”）：
+  - `display: inline-flex; align-items: center; justify-content: center;`
+  - `padding: 12px 22px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;`
+  - 背景 `primary`，文字 `#fff`，阴影 `0 12px 22px -16px rgba(15,23,42,0.7)`；hover `translateY(-2px)` 且阴影加深；focus-visible 使用 `2px solid var(--accent)` + `outline-offset: 4px`。
+- 次级/轻量按钮：同尺寸，背景 `#fff`，边框 `border`，文字 `foreground/80`，hover `bg-muted`。
+- 图标圆钮：`44px` 正圆，边框 `border`，背景 `card`，hover `bg-muted`。
 
-## 10. 样式组织约定
+### 4.2 表单与输入（Form Fields）
 
-- **样式来源优先级**：`app/style.css`（核心） → `web/index.html` 内联 → 打包 JS/Bulma（即将移除）。新样式一律放入 `app/style.css`，并尽量避免内联声明。
-- **命名空间**：所有新类名使用语义化、无 Bulma 前缀的命名（如 `.button-primary`、`.surface-card`）。
-- **覆盖策略**：仅在必须压制旧 Bulma 规则时使用 `!important`，并在移除 Bulma 后回收这些声明。
+- 标签 `.field-label`：`text-sm font-medium text-foreground`
+- 输入 `.field-input`：`height: 42px; border: 1px solid var(--color-border); border-radius: 12px; padding: 0 12px; background: #fff;`
+- 密集版 `.field-input--dense`：高度 36px，`padding: 0 10px`
+- 数值芯片 `.field-input--chip`：`text-align: center; font-variant-numeric: tabular-nums; border-radius: 12px`
+- 数值芯片窄版 `.field-input--chip-narrow`：控件收窄以适应窄屏 `clamp(120px, 40vw, 200px)`
+- 去除 number input 原生箭头；focus 使用 `box-shadow: 0 0 0 2px var(--color-ring)`.
 
+### 4.3 卡片与容器（Cards & Surfaces）
+
+- 卡片：`border: 1px solid var(--color-border); border-radius: 24px; padding: 20px; background: card; box-shadow: card shadow`
+- Popover/Modal：同卡片圆角，阴影使用 `elevated`；遮罩 `rgba(0,0,0,0.5)`，面板最大宽度 640px。
+
+### 4.4 标签 / Chips
+
+- 圆角 `999px`，`border: 1px solid var(--color-border); background: #fff; padding: 4px 12px; font-size: 12px; color: foreground`；hover 可加 `bg-muted`。
+
+### 4.5 上传区（Start Screen）
+
+- 结构：`section.start-screen > div.start-simple`，内部含上传按钮与提示。
+- 布局：`display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; width: 90%; margin: 0 auto;`
+- 按钮：复用 `.button-primary`；外层 `<label>` 包裹透明 `input[type=file]`。
+- 文案：`Drop an image or .schematic file here (up to 15 MB)`，保持单行。
+
+### 4.6 编辑器布局要点
+
+- `.editor-screen .columns`：`display: flex; flex-wrap: nowrap !important;`
+- 右侧调色板列：`flex-basis 300px; max-width 340px`，断点收缩：≤1500px → `280/320px`，≤1380px → `260/300px`。
+- 工作区 `min-height: 700px`；棋盘背景保持 25px 网格；避免 Palette 换行或溢出。
+
+## 5. 交互动效与状态（Interactions & States）
+
+- Hover：轻微上浮 `translateY(-1px)`；主按钮额外加深阴影。
+- Focus：`focus-visible:ring-2 focus-visible:ring-ring`，不使用复杂 `ring-offset`。
+- Disabled：`opacity: 0.5; pointer-events: none;`，不响应 hover。
+- 拖拽（排序/拖入）：被拖拽项可用 `scale-97` + `-translate-y-1`，`border-primary bg-primary/10 shadow-[0_18px_40px_rgba(99,102,241,0.45)]`；插入占位使用虚线边框。
+
+## 6. 响应式与栅格（Responsive & Grid）
+
+- 桌面优先，移动端通过 `md:`/`lg:` 增强；保持容器 `px-4` 以适配窄屏。
+- 表单行/数值芯片在 `<768px` 使用 `clamp()` 收紧；`<460px` 可拆为两列网格；`<414px` 堆叠为单列。
+- 复杂编辑器布局：桌面使用 `grid grid-cols-[auto,minmax(0,1fr)]` 或 flex 两列；移动端堆叠，工具栏保持可见。
+- 导航在移动端尽量简化，避免过多一级入口；减少装饰性阴影，优先可读性。
+
+## 7. 无障碍与可访问性（A11y）
+
+- 所有可交互元素可聚焦并有可见焦点；使用原生 `<button>` / `<a>`。
+- 表单：`label` 与控件 `for/id` 关联；错误/提示通过 `aria-describedby`；错误色使用 `destructive` 语义。
+- 对比度：主文案与背景对比度 ≥ 4.5:1；禁用状态仍保持可辨识，不作为唯一传达方式。
+
+## 8. 常用代码片段示例（Snippets）
+
+### 8.1 页面标题与说明
+
+```html
+<header class="mb-4">
+  <h1 class="text-2xl font-semibold">Page Title</h1>
+  <p class="text-sm text-muted-foreground">Optional subtitle</p>
+</header>
+```
+
+### 8.2 表单一行（Label + 输入 + 单位）
+
+```html
+<label class="field-label inline-flex items-center gap-2">
+  Width
+  <input
+    class="field-input field-input--chip-narrow text-center tabular-nums"
+    inputmode="numeric"
+    pattern="\\d*"
+  />
+  <span class="text-sm text-muted-foreground">px</span>
+</label>
+```
+
+### 8.3 列表卡片
+
+```html
+<article class="rounded-2xl border border-border bg-card p-5 shadow-sm">
+  <h3 class="text-lg font-semibold">Title</h3>
+  <p class="mt-2 text-sm text-foreground/90">Description text</p>
+</article>
+```
