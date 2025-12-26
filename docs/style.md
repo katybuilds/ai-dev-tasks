@@ -69,6 +69,7 @@ Tailwind 对应：将上述 token 映射到 `theme.extend.colors`，保留语义
 - 正文：`16px`，`line-height: 1.6`，颜色 `foreground`
 - 次要文本：`text-sm`，颜色 `muted-foreground`
 - 语言：所有 UI 文案保持英文；内部说明可用中文。
+- 文案大小写（Capitalization）：标题/按钮/导航等使用 Title Case；说明/正文使用 Sentence case；缩写保持原样（如 CTA / API / SEO / FAQ），代码与参数用反引号包裹并保持原样。
 
 ## 4. 组件样式
 
@@ -76,7 +77,7 @@ Tailwind 对应：将上述 token 映射到 `theme.extend.colors`，保留语义
 
 - 主 CTA `.button-primary`（如 “Launch Editor” / “Start Converting”）：
   - `display: inline-flex; align-items: center; justify-content: center;`
-  - `padding: 12px 22px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;`
+  - `padding: 12px 22px; border-radius: 999px; font-weight: 600;`
   - 背景 `primary`，文字 `#fff`，阴影 `0 12px 22px -16px rgba(15,23,42,0.7)`；hover `translateY(-2px)` 且阴影加深；focus-visible 使用 `2px solid var(--accent)` + `outline-offset: 4px`。
 - 次级/轻量按钮：同尺寸，背景 `#fff`，边框 `border`，文字 `foreground/80`，hover `bg-muted`。
 - 图标圆钮：`44px` 正圆，边框 `border`，背景 `card`，hover `bg-muted`。

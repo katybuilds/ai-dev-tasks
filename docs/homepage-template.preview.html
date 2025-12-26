@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Homepage Template Preview</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              background: "rgb(var(--color-background) / <alpha-value>)",
+              foreground: "rgb(var(--color-foreground) / <alpha-value>)",
+              primary: "rgb(var(--color-primary) / <alpha-value>)",
+              "primary-foreground": "rgb(var(--color-primary-foreground) / <alpha-value>)",
+              card: "rgb(var(--color-card) / <alpha-value>)",
+              "card-foreground": "rgb(var(--color-card-foreground) / <alpha-value>)",
+              muted: "rgb(var(--color-muted) / <alpha-value>)",
+              "muted-foreground": "rgb(var(--color-muted-foreground) / <alpha-value>)",
+              border: "rgb(var(--color-border) / <alpha-value>)",
+            },
+          },
+        },
+      }
+    </script>
+
+    <style>
+      :root {
+        --color-background: 253 253 253; /* #fdfdfd */
+        --color-foreground: 15 23 42; /* #0f172a */
+        --color-primary: 15 23 42; /* #0f172a */
+        --color-primary-foreground: 255 255 255; /* #ffffff */
+        --color-card: 255 255 255; /* #ffffff */
+        --color-card-foreground: 15 23 42; /* #0f172a */
+        --color-muted: 247 247 247; /* #f7f7f7 */
+        --color-muted-foreground: 111 111 111; /* #6f6f6f */
+        --color-border: 235 235 235; /* #ebebeb */
+      }
+
+      body {
+        font-family:
+          "Plus Jakarta Sans",
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          sans-serif;
+      }
+    </style>
+  </head>
+
+  <body class="bg-background text-foreground">
+    <header class="mx-auto flex max-w-6xl items-center justify-between px-4 pt-6 text-foreground sm:px-6">
+      <a href="#" class="inline-flex items-center gap-3">
+        <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M10.5 13.5L13.5 10.5"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            ></path>
+            <path
+              d="M7 17a4 4 0 010-6l1-1a4 4 0 016 0"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            ></path>
+            <path
+              d="M17 7a4 4 0 010 6l-1 1a4 4 0 01-6 0"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            ></path>
+          </svg>
+        </span>
+        <span class="text-sm font-semibold tracking-tight">SITE TITLE</span>
+      </a>
+
+      <nav aria-label="Primary" class="flex items-center gap-8 text-sm font-medium">
+        <a href="#" class="transition text-foreground underline decoration-primary/60 underline-offset-8">Home</a>
+        <a href="#about" class="transition text-foreground/80 hover:text-foreground">About</a>
+        <a href="#blog" class="transition text-foreground/80 hover:text-foreground">Blog</a>
+        <a href="#contact" class="transition text-foreground/80 hover:text-foreground">Contact</a>
+      </nav>
+    </header>
+
+    <div class="mx-auto mt-16 max-w-5xl space-y-20 px-4 text-foreground sm:px-6">
+      <section class="space-y-4 text-center md:relative md:left-1/2 md:w-[120%] md:-translate-x-1/2">
+        <p class="text-xs font-semibold uppercase tracking-[0.35em] text-primary">Template Tagline</p>
+        <h1 class="text-3xl font-bold tracking-tight text-foreground md:text-[38px]">
+          Readable Hero Headline Goes Here
+        </h1>
+        <p class="mx-auto max-w-4xl text-base leading-relaxed text-muted-foreground md:text-lg">
+          Use this space for a concise description of the product value. Keep copy short and scannable so teams can swap
+          in their own language.
+        </p>
+      </section>
+
+      <section aria-label="Tool preview" class="mx-auto max-w-5xl">
+        <div
+          class="rounded-3xl border border-border bg-card/80 p-6 shadow-[0_22px_44px_-34px_rgba(15,23,42,0.22)] md:p-10"
+        >
+          <div class="grid gap-10 lg:grid-cols-[0.55fr_0.45fr] lg:items-start">
+            <div class="space-y-4">
+              <h2 class="text-xl font-semibold tracking-tight text-foreground md:text-2xl">Tool Placeholder</h2>
+              <p class="text-sm leading-relaxed text-muted-foreground md:text-base">
+                Drop your real interactive tool here next time. Keep the layout representative so the landing page
+                remains scannable and consistent.
+              </p>
+
+              <div class="space-y-3 rounded-2xl border border-border bg-background p-4">
+                <p class="text-sm font-semibold text-foreground">Input</p>
+                <div class="h-28 rounded-xl border border-border bg-background">
+                  <div class="h-full w-full rounded-xl bg-gradient-to-b from-muted/40 to-background p-3">
+                    <div class="h-3 w-3/5 rounded bg-muted"></div>
+                    <div class="mt-2 h-3 w-4/5 rounded bg-muted/80"></div>
+                    <div class="mt-2 h-3 w-2/3 rounded bg-muted/70"></div>
+                  </div>
+                </div>
+                <p class="text-xs text-muted-foreground">Placeholder for a textarea, editor, or upload widget.</p>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <div class="rounded-2xl border border-border bg-background p-5">
+                <h3 class="text-sm font-semibold text-foreground">Output</h3>
+                <p class="mt-2 text-sm text-muted-foreground">Show a preview / results list / generated content here.</p>
+                <div class="mt-4 space-y-3">
+                  <div class="h-10 rounded-xl border border-border bg-muted/40"></div>
+                  <div class="h-10 rounded-xl border border-border bg-muted/40"></div>
+                  <div class="h-10 rounded-xl border border-border bg-muted/40"></div>
+                </div>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-3">
+                <a
+                  href="#tool"
+                  class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-primary to-primary/80 px-6 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-primary-foreground shadow-[0_14px_28px_-18px_rgba(15,23,42,0.65)] transition hover:opacity-95"
+                >
+                  Run Tool
+                </a>
+                <a
+                  href="#docs"
+                  class="inline-flex items-center justify-center rounded-full border border-border bg-background px-6 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-foreground/80 transition hover:bg-muted hover:text-foreground"
+                >
+                  View Docs
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-5xl">
+        <div class="grid gap-10 lg:grid-cols-[0.6fr_0.4fr] lg:items-start">
+          <div class="space-y-6">
+            <h2 class="text-2xl font-semibold md:text-[28px]">Why Choose This Product</h2>
+            <div class="space-y-3 text-base leading-relaxed text-muted-foreground">
+              <div class="flex gap-3">
+                <span class="mt-2 h-1.5 w-6 rounded-full bg-primary/70" aria-hidden="true"></span>
+                <div>
+                  <p class="font-semibold text-foreground">Key Benefit One</p>
+                  <p>Short supporting detail describing what this highlight covers in the final homepage.</p>
+                </div>
+              </div>
+
+              <div class="flex gap-3">
+                <span class="mt-2 h-1.5 w-6 rounded-full bg-primary/70" aria-hidden="true"></span>
+                <div>
+                  <p class="font-semibold text-foreground">Key Benefit Two</p>
+                  <p>Another concise point that teams can later replace with final marketing copy.</p>
+                </div>
+              </div>
+
+              <div class="flex gap-3">
+                <span class="mt-2 h-1.5 w-6 rounded-full bg-primary/70" aria-hidden="true"></span>
+                <div>
+                  <p class="font-semibold text-foreground">Key Benefit Three</p>
+                  <p>Ensure lists remain balanced and avoid hard-coded messaging in the template itself.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-center border-l border-primary/20 pl-6">
+            <img
+              src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27220%27%20height%3D%27420%27%20viewBox%3D%270%200%20220%20420%27%3E%3Crect%20width%3D%27220%27%20height%3D%27420%27%20fill%3D%27%23f7f7f7%27/%3E%3Crect%20x%3D%2716%27%20y%3D%2716%27%20width%3D%27188%27%20height%3D%27388%27%20rx%3D%2732%27%20fill%3D%27%23ffffff%27%20stroke%3D%27%23ebebeb%27/%3E%3Ctext%20x%3D%27110%27%20y%3D%27210%27%20font-size%3D%2712%27%20text-anchor%3D%27middle%27%20fill%3D%27%236f6f6f%27%20font-family%3D%27system-ui%2C%20Segoe%20UI%2C%20sans-serif%27%3EPromo%20Image%3C/text%3E%3C/svg%3E"
+              alt="Placeholder interface preview"
+              class="h-full max-h-[420px] w-full max-w-[220px] rounded-3xl border border-border/50 bg-background/80 object-contain shadow-[0_18px_32px_-24px_rgba(63,63,94,0.25)]"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-5xl space-y-8">
+        <h2 class="text-center text-2xl font-semibold md:text-[28px]">Core Features at a Glance</h2>
+        <div class="grid gap-8 md:grid-cols-3">
+          <article class="space-y-3 border-l border-border/70 pl-5 transition hover:border-primary/50">
+            <h3 class="text-lg font-semibold text-foreground">Feature Title One</h3>
+            <p class="text-sm leading-relaxed text-muted-foreground md:text-base">
+              Brief description for how this feature solves a primary job-to-be-done for the user.
+            </p>
+          </article>
+          <article class="space-y-3 border-l border-border/70 pl-5 transition hover:border-primary/50">
+            <h3 class="text-lg font-semibold text-foreground">Feature Title Two</h3>
+            <p class="text-sm leading-relaxed text-muted-foreground md:text-base">
+              Another succinct explanation that will be replaced when the real copy is available.
+            </p>
+          </article>
+          <article class="space-y-3 border-l border-border/70 pl-5 transition hover:border-primary/50">
+            <h3 class="text-lg font-semibold text-foreground">Feature Title Three</h3>
+            <p class="text-sm leading-relaxed text-muted-foreground md:text-base">
+              Keep each paragraph focused on functionality so the layout stays representative.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-5xl space-y-8">
+        <h2 class="text-center text-2xl font-semibold md:text-[28px]">How It Works</h2>
+        <div class="relative grid gap-10 md:grid-cols-3">
+          <span
+            class="pointer-events-none absolute left-1/2 top-12 hidden h-[calc(100%-3rem)] w-px -translate-x-1/2 bg-border/60 md:block"
+            aria-hidden="true"
+          ></span>
+
+          <div class="relative space-y-4">
+            <div
+              class="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-5 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-primary"
+            >
+              Step 1
+            </div>
+            <h3 class="text-lg font-semibold text-foreground">Describe the first action</h3>
+            <p class="text-sm leading-relaxed text-muted-foreground md:text-base">
+              Outline what the user should do first in a single sentence.
+            </p>
+          </div>
+
+          <div class="relative space-y-4">
+            <div
+              class="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-5 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-primary"
+            >
+              Step 2
+            </div>
+            <h3 class="text-lg font-semibold text-foreground">Explain the second action</h3>
+            <p class="text-sm leading-relaxed text-muted-foreground md:text-base">
+              Continue the journey with another lightweight explanation of the next step.
+            </p>
+          </div>
+
+          <div class="relative space-y-4">
+            <div
+              class="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-5 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-primary"
+            >
+              Step 3
+            </div>
+            <h3 class="text-lg font-semibold text-foreground">Clarify the final outcome</h3>
+            <p class="text-sm leading-relaxed text-muted-foreground md:text-base">
+              Wrap up with the goal state so future copywriters know what belongs here.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-5xl space-y-8">
+        <div class="text-center">
+          <p class="text-xs font-semibold uppercase tracking-[0.35em] text-primary">Designed for Different Workflows</p>
+          <h2 class="mt-3 text-2xl font-semibold md:text-[30px]">Use Cases</h2>
+          <p class="mt-3 text-sm text-muted-foreground md:text-base">
+            Replace with the most common scenarios your customers care about. Keep the list balanced and scannable.
+          </p>
+        </div>
+
+        <div class="grid gap-5 md:grid-cols-3">
+          <div
+            class="flex items-start gap-3 rounded-3xl border border-border/60 bg-background/90 px-6 py-5 shadow-[0_18px_32px_-24px_rgba(63,63,94,0.25)]"
+          >
+            <span class="mt-1 inline-flex h-2 w-2 items-center justify-center rounded-full bg-primary">
+              <span class="sr-only">bullet</span>
+            </span>
+            <p class="text-sm font-medium leading-relaxed text-foreground md:text-base">Example use case one</p>
+          </div>
+          <div
+            class="flex items-start gap-3 rounded-3xl border border-border/60 bg-background/90 px-6 py-5 shadow-[0_18px_32px_-24px_rgba(63,63,94,0.25)]"
+          >
+            <span class="mt-1 inline-flex h-2 w-2 items-center justify-center rounded-full bg-primary">
+              <span class="sr-only">bullet</span>
+            </span>
+            <p class="text-sm font-medium leading-relaxed text-foreground md:text-base">Example use case two</p>
+          </div>
+          <div
+            class="flex items-start gap-3 rounded-3xl border border-border/60 bg-background/90 px-6 py-5 shadow-[0_18px_32px_-24px_rgba(63,63,94,0.25)]"
+          >
+            <span class="mt-1 inline-flex h-2 w-2 items-center justify-center rounded-full bg-primary">
+              <span class="sr-only">bullet</span>
+            </span>
+            <p class="text-sm font-medium leading-relaxed text-foreground md:text-base">Example use case three</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-5xl space-y-8">
+        <h2 class="text-center text-2xl font-semibold md:text-[28px]">Frequently Asked Questions</h2>
+        <div class="divide-y divide-border/70">
+          <article class="space-y-2 py-6">
+            <h3 class="text-base font-semibold text-foreground md:text-lg">Sample question one?</h3>
+            <p class="text-sm leading-relaxed text-muted-foreground md:text-base">
+              Keep answers short and utilitarian. Replace these placeholders during content production.
+            </p>
+          </article>
+          <article class="space-y-2 py-6">
+            <h3 class="text-base font-semibold text-foreground md:text-lg">Sample question two?</h3>
+            <p class="text-sm leading-relaxed text-muted-foreground md:text-base">
+              Mirror the number of FAQ entries the live page needs, but avoid committing to final messaging here.
+            </p>
+          </article>
+          <article class="space-y-2 py-6">
+            <h3 class="text-base font-semibold text-foreground md:text-lg">Sample question three?</h3>
+            <p class="text-sm leading-relaxed text-muted-foreground md:text-base">
+              Use consistent sentence length so layout spacing is easy to evaluate inside design reviews.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section
+        class="mx-auto max-w-5xl rounded-3xl border border-primary/25 bg-primary/10 px-8 py-10 text-center shadow-[0_20px_40px_-28px_rgba(99,102,241,0.35)]"
+      >
+        <h2 class="text-2xl font-semibold text-foreground md:text-[30px]">Get Started</h2>
+        <p class="mt-3 text-sm text-muted-foreground md:text-base">
+          Invite visitors to try the product immediately. Keep copy imperative, benefits-led, and concise.
+        </p>
+        <a
+          href="#setup"
+          class="mt-6 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-primary to-primary/80 px-6 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-primary-foreground shadow-[0_16px_32px_-20px_rgba(99,102,241,0.55)] transition hover:opacity-95"
+        >
+          <span>Start Now</span>
+          <span class="ml-3" aria-hidden="true">→</span>
+        </a>
+      </section>
+    </div>
+
+    <footer class="relative mt-16 bg-background text-foreground/90">
+      <span class="pointer-events-none absolute inset-x-0 top-0 h-px bg-foreground/10" aria-hidden="true"></span>
+      <span class="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-foreground/5" aria-hidden="true"></span>
+      <div class="mx-auto max-w-6xl px-6 pb-14 pt-10 text-center text-sm text-muted-foreground">
+        <p class="mt-2">/* Replace with final footer copy when implementing */</p>
+        <p class="mt-6 text-xs text-muted-foreground/70">Placeholder © 20XX Example Product.</p>
+      </div>
+    </footer>
+  </body>
+</html>
