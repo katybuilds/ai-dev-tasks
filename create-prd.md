@@ -1,117 +1,110 @@
-# Rule: Generating a Product Requirements Document (PRD)
+# 规则：生成产品需求文档（PRD）
 
-## Goal
+## 目标
 
-To guide an AI assistant in creating a detailed Product Requirements Document (PRD) in Markdown format, based on an initial user prompt. The PRD should be clear, actionable, and suitable for a junior developer to understand and implement the feature.
+指导智能助手基于用户的初始需求，生成清晰、可执行的 PRD（Markdown 格式），让初级开发者也能理解并实现。
 
-## Process
+## 流程
 
-1.  **Receive Initial Prompt:** The user provides a brief description or request for a new feature or functionality.
-2.  **Ask Clarifying Questions:** Before writing the PRD, the AI _must_ ask only the most essential clarifying questions needed to write a clear PRD. Limit questions to 3-5 critical gaps in understanding. The goal is to understand the "what" and "why" of the feature, not necessarily the "how" (which the developer will figure out). Make sure to provide options in letter/number lists so I can respond easily with my selections.
-3.  **Generate PRD:** Based on the initial prompt and the user's answers to the clarifying questions, generate a PRD using the structure outlined below.
-4.  **Save PRD:** Save the generated document as `spec.md` inside the `/docs` directory.
+1. **接收初始需求：** 用户提供功能/需求的简要描述。
+2. **提出澄清问题：** 在写 PRD 前，必须只问最关键的 3–5 个问题，用于补齐影响 PRD 清晰度的缺口。重点理解“做什么/为什么”，而不是“怎么做”。问题必须以编号 + 选项（A/B/C…）形式给出，便于用户直接回复选项。
+3. **生成 PRD：** 基于初始需求与用户回答，按下述结构生成 PRD。
+4. **保存 PRD：** 将文件保存为 `/docs/PRD.md`。
 
-## Clarifying Questions (Guidelines)
+## 澄清问题（指南）
 
-Ask only the most critical questions needed to write a clear PRD. Focus on areas where the initial prompt is ambiguous or missing essential context. Common areas that may need clarification:
+只问最关键的问题，且仅在信息确实缺失时提问。常见补充方向：
 
-- **Problem/Goal:** If unclear - "What problem does this feature solve for the user?"
-- **Core Functionality:** If vague - "What are the key actions a user should be able to perform?"
-- **Scope/Boundaries:** If broad - "Are there any specific things this feature _should not_ do?"
-- **Success Criteria:** If unstated - "How will we know when this feature is successfully implemented?"
+- **问题/目标：** 若不清晰 → “此功能为用户解决什么问题？”
+- **核心功能：** 若描述模糊 → “用户需要完成哪些关键动作？”
+- **范围/边界：** 若范围过大 → “明确哪些不做？”
+- **成功标准：** 若缺失 → “如何判断实现成功？”
+- **域名与关键词：** 若缺失 → “主要域名（或拟使用域名）是什么？用于文案/标题/SEO 的 5–12 个关键词或短语有哪些？”
+- **目标地区/语言变体：** 若缺失 → “面向的地区/语言变体（如美式/英式）是什么？”
 
-**Important:** Only ask questions when the answer isn't reasonably inferable from the initial prompt. Prioritize questions that would significantly impact the PRD's clarity.
+**重要：** 仅在无法从初始需求合理推断时提问。优先提问对 PRD 清晰度影响最大的点。
 
-### Formatting Requirements
+### 提问格式要求
 
-- **Number all questions** (1, 2, 3, etc.)
-- **List options for each question as A, B, C, D, etc.** for easy reference
-- Make it simple for the user to respond with selections like "1A, 2C, 3B"
+- **问题必须编号**（1, 2, 3…）
+- **每个问题必须提供 A/B/C/D… 选项**
+- 用户可用类似 “1A, 2C, 3B” 的方式回复
 
-### Example Format
+### 示例格式
 
 ```
-1. What is the primary goal of this feature?
-   A. Improve user onboarding experience
-   B. Increase user retention
-   C. Reduce support burden
-   D. Generate additional revenue
+1. 该功能的主要目标是什么？
+   A. 改善新用户上手
+   B. 提升留存
+   C. 降低支持成本
+   D. 增加收入
 
-2. Who is the target user for this feature?
-   A. New users only
-   B. Existing users only
-   C. All users
-   D. Admin users only
+2. 目标用户是谁？
+   A. 仅新用户
+   B. 仅老用户
+   C. 全部用户
+   D. 仅管理员
 
-3. What is the expected timeline for this feature?
-   A. Urgent (1-2 weeks)
-   B. High priority (3-4 weeks)
-   C. Standard (1-2 months)
-   D. Future consideration (3+ months)
+3. 期望上线时间？
+   A. 紧急（1–2 周）
+   B. 高优先级（3–4 周）
+   C. 标准（1–2 个月）
+   D. 未来再做（3 个月以上）
 ```
 
-## PRD Structure
+## PRD 结构
 
-The generated PRD should include the following sections（顺序可视情况微调，但推荐保持整体结构）：
+PRD 应包含以下章节（可微调顺序，但建议保持整体结构）：
 
-1.  **Introduction/Overview：** Briefly describe the feature and the problem it solves. State the goal.
-2.  **Goals：** List the specific, measurable objectives for this feature.
-3.  **User Stories：** Detail the user narratives describing feature usage and benefits.
-4.  **Glossary（术语表）：** 用于统一内部技术术语、规格文案、界面展示文案的对应关系，避免开发、文档和 UI 中出现命名混乱，便于在规格、技术实现和讨论时对齐概念。  
-    Glossary 至少应包含以下三列：
+1. **Introduction/Overview：** 简述功能与问题，说明目标。
+2. **Goals：** 列出可衡量的目标。
+3. **User Stories：** 用户故事。
+4. **Glossary（术语表）：** 用于统一内部术语、规格文案与 UI 文案。
+   - **Term（英文内部术语）**：代码/规格/任务统一用的英文名
+   - **中文解释**：含义与使用场景
+   - **UI 文案（外显）**：界面显示的文字
 
-    - **Term（英文内部术语）**：代码、规格文档、任务列表中使用的英文名；
-    - **中文解释**：简要说明该术语的含义与使用场景，帮助理解规格意图；
-    - **UI 文案（外部呈现）**：用户界面中实际显示的文字（按钮/标题/标签等）。
+   表格示例：
 
-      以表格形式维护。示例：
+   | Term        | 中文解释     | UI 文案（外显）            |
+   | ----------- | ------------ | -------------------------- |
+   | Search Mode | 搜索模式     | Search Mode                |
+   | Copy Mode   | 复制模式     | Copy Mode                  |
+   | Link Guard  | 链接禁用功能 | Disable links on this site |
 
-    | Term        | 中文解释     | UI 文案（外显）            |
-    | ----------- | ------------ | -------------------------- |
-    | Search Mode | 搜索模式     | Search Mode                |
-    | Copy Mode   | 复制模式     | Copy Mode                  |
-    | Link Guard  | 链接禁用功能 | Disable links on this site |
+   Glossary 使用规则：
+   - 内部统一使用 Term；UI 一律使用「UI 文案」
+   - 新概念必须先补 Glossary
+   - 术语冲突需先澄清再新增
 
-    Glossary 使用规则：
+5. **Interaction Flows（交互路径）：** 用户视角的步骤流程，仅描述界面层响应，不写实现细节。
+6. **Functional Requirements：** 具体功能与业务规则，使用可实现、可验证的语句并编号。
+7. **Non-Goals (Out of Scope)：** 明确不做的范围。
+8. **Design Considerations (Optional)：** 设计/组件/样式指引。
+9. **Technical Considerations (Optional)：** 技术约束或依赖。
+10. **Success Metrics：** 成功衡量指标。
+11. **Open Questions：** 未决问题。
+12. **Domain & Primary Keywords：** 主要域名与关键词（用于文案/标题/SEO）。
 
-    - **内部统一使用 Term 列中的英文术语**：包括代码、注释、技术文档（`spec.md` / `tech.md`）、任务列表（`tasks.md`）等；
-    - **UI 一律使用「UI 文案」列**：不得直接把内部术语原样展示给终端用户，除非 Term 与 UI 文案刻意保持一致；
-    - **新增功能时必须更新 Glossary**：一旦出现新概念（例如新模式、新开关、新页面），在扩展规格之前必须先在 Glossary 中新增对应条目；
-    - **AI 在生成 spec/style/tasks 时必须读取并遵循 Glossary**：生成 PRD、样式文档、任务列表时，应优先复用 Glossary 中已有术语与 UI 文案，确保前后一致；
-    - **术语不清晰或冲突时必须先确认**：如 AI 发现现有术语含义不清、互相重叠或与 UI 文案冲突，必须先向用户提问澄清，再在 Glossary 中新增或调整条目，避免自行造词。
+## 目标读者
 
-5.  **Interaction Flows（交互路径）：** 用用户视角按步骤描述关键使用路径，只描述「用户做什么 → 系统在界面层面的可见响应」，不写实现细节和底层技术，例如：
-    - 从打开页面 / 扩展入口 → 触发功能（如打开 Popup、切换模式、选中文本出现气泡）→ 完成目标操作；
-    - 常见设置流程（如进入 Options → 管理搜索引擎 / 白名单 → 保存并生效）。  
-      若与功能描述有重叠，应在本节保留高层路径，在 Functional Requirements 中写清具体规则与边界。
-6.  **Functional Requirements：** 列出系统必须具备的具体功能与行为规则，包括：状态定义、输入输出、边界条件、错误处理等。使用清晰、可实现的语句（例如："The system must allow users to upload a profile picture."），并对重要需求进行编号。所有实现相关细节和业务规则应归入本节，而不是放在交互路径中。
-7.  **Non-Goals (Out of Scope)：** Clearly state what this feature will _not_ include to manage scope.
-8.  **Design Considerations (Optional)：** Link to mockups, describe UI/UX requirements, or mention relevant components/styles if applicable.
-9.  **Technical Considerations (Optional)：** Mention any known technical constraints, dependencies, or suggestions (e.g., "Should integrate with the existing Auth module").
-10. **Success Metrics：** How will the success of this feature be measured? (e.g., "Increase user engagement by 10%", "Reduce support tickets related to X").
-11. **Open Questions：** List any remaining questions or areas needing further clarification.
+PRD 的主要读者是**初级开发者**，要求明确、无歧义。
 
-## Target Audience
+## 输出
 
-Assume the primary reader of the PRD is a **junior developer**. Therefore, requirements should be explicit, unambiguous, and avoid jargon where possible. Provide enough detail for them to understand the feature's purpose and core logic.
-
-## Output
-
-- **Format:** Markdown (`.md`)
-- **Location:** `/docs/`
-- **Filename:** `spec.md`
-- **Doc Role Note:** When generating the PRD `spec.md`, you **must** add the following note near the top of the document (typically right after the main title):
+- **格式：** Markdown（`.md`）
+- **位置：** `/docs/`
+- **文件名：** `PRD.md`
+- **文档角色说明：** 在 `PRD.md` 标题下方必须加入：
 
   `文档角色说明：本文件定义「做什么、怎么运作」——功能逻辑、交互流程与业务规则；具体颜色/字体/间距/组件样式等视觉细节统一收敛在 docs/style.md。`
 
-- **Local Preview Note:** At the top of `spec.md` (close to the doc role note), you **must** include a short note explaining how to run the project locally, prioritizing `pnpm dev` as the recommended command (for example: “在本地查看效果：优先使用 \`pnpm dev\` 启动开发服务器，如未安装 pnpm，可按照项目 README 中的说明使用 npm/yarn。”).
+- **本地预览说明：** 顶部需说明本地运行方式，优先 `pnpm dev`。
+- **完工提示（可选）：** 可提示开发者参见 `rules.md` 中的本地完工提示命令。
+- **语言规范说明：** PRD 顶部需简要说明语言规范，并引用 `rules.md` 的语言规范章节。
 
-- **Completion Notification Note (optional):** `spec.md` 可以包含一句简短提示，指引开发者在全部任务完成后，如需本地声音提醒，可以参见 `rules.md` 中的「本地完工提示」命令，而不必在 `spec.md` 中重复完整命令。
+## 最终约束
 
-- **Language Usage Note:** `spec.md` 顶部应简要说明本项目的语言使用规范（例如：内部说明文档使用中文，代码与对外界面使用英文），并可以引用 `rules.md` 中的《语言使用规范》作为详细规则来源，而不需要在 `spec.md` 中完整复制所有条目。
-
-## Final instructions
-
-1. Do NOT start implementing the PRD
-2. Make sure to ask the user clarifying questions
-3. Take the user's answers to the clarifying questions and improve the PRD
+1. 不要开始实现，只生成文档
+2. 必须先提问澄清问题
+3. 依据用户回答完善 PRD
