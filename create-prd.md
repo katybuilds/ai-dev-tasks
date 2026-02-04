@@ -71,9 +71,10 @@
 PRD 应包含以下章节（可微调顺序，但建议保持整体结构）：
 
 1. **Introduction/Overview：** 简述功能与问题，说明目标。
-2. **Goals：** 列出可衡量的目标。
-3. **User Stories：** 用户故事。
-4. **Glossary（术语表）：** 用于统一内部术语、规格文案与 UI 文案。
+2. **Domain & Primary Keywords：** 主要域名与关键词（用于文案/标题/SEO）。
+3. **Goals：** 列出可衡量的目标。
+4. **User Stories：** 用户故事。
+5. **Glossary（术语表）：** 用于统一内部术语、规格文案与 UI 文案。
    - **Term（英文内部术语）**：代码/规格/任务统一用的英文名
    - **中文解释**：含义与使用场景
    - **UI 文案（外显）**：界面显示的文字
@@ -91,14 +92,17 @@ PRD 应包含以下章节（可微调顺序，但建议保持整体结构）：
    - 新概念必须先补 Glossary
    - 术语冲突需先澄清再新增
 
-5. **Interaction Flows（交互路径）：** 用户视角的步骤流程，仅描述界面层响应，不写实现细节。
-6. **Functional Requirements：** 具体功能与业务规则，使用可实现、可验证的语句并编号。
-7. **Non-Goals (Out of Scope)：** 明确不做的范围。
-8. **Design Considerations (Optional)：** 设计/组件/样式指引。
-9. **Technical Considerations (Optional)：** 技术约束或依赖。
-10. **Success Metrics：** 成功衡量指标。
-11. **Open Questions：** 未决问题。
-12. **Domain & Primary Keywords：** 主要域名与关键词（用于文案/标题/SEO）。
+6. **Interaction Flows（交互路径）：** 用户视角的步骤流程，仅描述界面层响应，不写实现细节。
+7. **Functional Requirements：** 具体功能与业务规则，使用可实现、可验证的语句并编号。
+8. **Non-Goals (Out of Scope)：** 明确不做的范围。
+9. **Design Considerations (Optional)：** 设计/组件/样式指引。
+10. **UI Reference Code（UI 参考代码，必留占位）**：
+   - 用于粘贴 UI 参考实现（已有页面/组件/布局代码），让后续 AI 做网站时“按参考实现”，而不是盲猜 UI 结构；
+   - 默认放 `TODO` 占位；当你有代码时直接贴进来即可；
+   - 若提供了参考代码，后续实现应优先复用其信息架构/组件结构/交互模式，并指出哪些部分仍是 `TODO`。
+11. **Technical Considerations (Optional)：** 技术约束或依赖。
+12. **Success Metrics：** 成功衡量指标。
+13. **Open Questions：** 未决问题。
 
 ## 目标读者
 
@@ -114,6 +118,18 @@ PRD 的主要读者是**初级开发者**，要求明确、无歧义。
   `文档角色说明：本文件定义「做什么、怎么运作」——功能逻辑、交互流程与业务规则；视觉细节统一收敛在设计规范 src\\styles。`
 
 - **语言规范说明：** PRD 顶部需简要说明语言规范（直接引用，不再提 `rules.md`）。
+- **UI 参考代码占位（必需）：** PRD 中必须包含 `UI Reference Code（UI 参考代码）` 章节，并提供可直接粘贴的代码块占位，例如：
+
+  ```md
+  ## UI Reference Code（UI 参考代码）
+
+  > TODO：把现有 UI 参考实现贴在这里（例如：已有页面/组件/布局代码）。
+  > 后续实现应优先参考这份代码的结构与交互，而不是自行假设。
+
+  ```tsx
+  // TODO: paste UI reference code here
+  ```
+  ```
 
 ## 最终约束
 
